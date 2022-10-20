@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "iRi",
+        " G ",
+        " i "
+    ],
+    "key": {
+        "i": {
+            "item": "minecraft:iron_ingot"
+        },
+        "R": {
+            "item": "minecraft:redstone"
+        },
+        "G": {
+            "item": "slimebreeder:slimecapsule"
+        }
+    },
+    "result": {
+        "item": "slimebreeder:slimalyser",
+        "count": 1
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "blocks/slimecore",
+        "1": "slimebreeder:slimecore",
+        "2": "blocks/slime"
+    },
+    "elements": [
+        {
+            "name": "Head",
+            "from": [ 6.0, 0.0, 4.0 ], 
+            "to": [ 12.0, 6.0, 10.0 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 5.0, 5.0, 16.0, 16.0 ] },
+                "east": { "texture": "#1", "uv": [ 5.0, 5.0, 16.0, 16.0 ] },
+                "south": { "texture": "#1", "uv": [ 15.0, 5.0, 5.0, 16.0 ] },
+                "west": { "texture": "#1", "uv": [ 5.0, 5.0, 16.0, 16.0 ] },
+                "up": { "texture": "#1", "uv": [ 5.0, 5.0, 16.0, 16.0 ] },
+                "down": { "texture": "#1", "uv": [ 5.0, 5.0, 16.0, 16.0 ] }
+            }
+        },
+        {
+            "name": "Left Eye",
+            "from": [ 6.0, 3.0, 10.0 ], 
+            "to": [ 8.0, 5.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 8.0, 1.0, 10.0, 3.0 ] },
+                "east": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 2.0 ] },
+                "south": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "west": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 2.0 ] },
+                "up": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
+                "down": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "Right Eye",
+            "from": [ 10.0, 3.0, 10.0 ], 
+            "to": [ 12.0, 5.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
+                "east": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 2.0 ] },
+                "south": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
+                "west": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 2.0 ] },
+                "up": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 1.0 ] },
+                "down": { "texture": "#1", "uv": [ 0.0, 0.0, 2.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "Mouth",
+            "from": [ 9.0, 1.0, 10.0 ], 
+            "to": [ 10.0, 2.0, 11.0 ], 
+            "faces": {
+                "north": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "east": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "south": { "texture": "#1", "uv": [ 8.0, 3.0, 7.0, 4.0 ] },
+                "west": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "up": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] },
+                "down": { "texture": "#1", "uv": [ 0.0, 0.0, 1.0, 1.0 ] }
+            }
+        }
+    ]
+}

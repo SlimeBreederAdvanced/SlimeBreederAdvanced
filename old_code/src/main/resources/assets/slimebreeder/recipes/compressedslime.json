@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "iii",
+        "iii",
+        "iii"
+    ],
+    "key": {
+        "i": {
+            "item": "minecraft:slime"
+        }
+    },
+    "result": {
+        "item": "slimebreeder:compressed_slimeblock",
+        "count": 1
+    }
+}

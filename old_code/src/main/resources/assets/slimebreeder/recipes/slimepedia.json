@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:slime_ball"
+        },
+        {
+            "item": "minecraft:paper"
+        },
+        {
+            "item": "minecraft:leather"
+        }
+    ],
+    "result": {
+        "item": "slimebreeder:slimepedia",
+        "count": 1
+    }
+}

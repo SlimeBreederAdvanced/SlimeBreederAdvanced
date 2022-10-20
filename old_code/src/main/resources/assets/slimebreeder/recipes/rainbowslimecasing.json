@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "iji",
+        "j j",
+        "iji"
+    ],
+    "key": {
+        "i": {
+            "item": "slimebreeder:compressed_slimeball"
+        },
+        "j": {
+            "item": "slimebreeder:rainbowslimecrystal"
+        }
+    },
+    "result": {
+        "item": "slimebreeder:rainbowslimecasing",
+        "count": 1
+    }
+}

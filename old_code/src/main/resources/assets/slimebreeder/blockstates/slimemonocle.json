@@ -1,0 +1,21 @@
+{
+    "forge_marker": 1,
+    "defaults": 
+    {
+        "textures": 
+        {
+            "all": "slimebreeder:slimemonocle"
+        }
+    },
+    "variants": 
+    {
+        "normal": 
+        { 
+            "model": "slimebreeder:slimemonocle" 
+        },
+        "inventory": 
+        { 
+            "model": "slimebreeder:slimemonocle" 
+        }
+    }
+}

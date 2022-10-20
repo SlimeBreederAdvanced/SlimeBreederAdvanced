@@ -1,0 +1,117 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "slimemonocle": "slimebreeder:blocks/slimemonocle"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Centre",
+            "from": [ 2, 8, 0 ], 
+            "to": [ 7, 11, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 2, 4, 12, 10 ] },
+                "east": { "texture": "#slimemonocle", "uv": [ 2, 6, 3, 9 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 2, 10, 12, 4 ] },
+                "west": { "texture": "#slimemonocle", "uv": [ 2, 5, 3, 8 ] },
+                "up": { "texture": "#slimemonocle", "uv": [ 4, 2, 9, 3 ] },
+                "down": { "texture": "#slimemonocle", "uv": [ 5, 2, 10, 3 ] }
+            }
+        },
+        {
+            "name": "bottom",
+            "from": [ 3, 7, 0 ], 
+            "to": [ 6, 8, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 6, 2, 10, 5 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 7, 10, 10, 12 ] },
+                "down": { "texture": "#slimemonocle", "uv": [ 7, 2, 10, 3 ] }
+            }
+        },
+        {
+            "name": "top",
+            "from": [ 3, 11, 0 ], 
+            "to": [ 6, 12, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 5, 3, 8, 4 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 5, 3, 8, 4 ] },
+                "up": { "texture": "#slimemonocle", "uv": [ 6, 3, 9, 4 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 2, 11, 0 ], 
+            "to": [ 3, 12, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "west": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "up": { "texture": "#slimemonocle", "uv": [ 0, 0, 1, 1 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 2, 7, 0 ], 
+            "to": [ 3, 8, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "west": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "down": { "texture": "#slimemonocle", "uv": [ 12, 0, 14, 2 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 6, 7, 0 ], 
+            "to": [ 7, 8, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "east": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 2, 9, 4, 11 ] },
+                "down": { "texture": "#slimemonocle", "uv": [ 12, 0, 14, 2 ] }
+            }
+        },
+        {
+            "name": "Cube",
+            "from": [ 6, 11, 0 ], 
+            "to": [ 7, 12, 1 ], 
+            "faces": {
+                "north": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "east": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "south": { "texture": "#slimemonocle", "uv": [ 2, 3, 4, 5 ] },
+                "up": { "texture": "#slimemonocle", "uv": [ 0, 0, 1, 1 ] }
+            }
+        }
+    ]
+}

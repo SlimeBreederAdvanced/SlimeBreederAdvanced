@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ij",
+        "ji"
+    ],
+    "key": {
+        "i": {
+            "item": "slimebreeder:compressed_slimeball"
+        },
+        "j": {
+            "item": "slimebreeder:ironslimechunk"
+        }
+    },
+    "result": {
+        "item": "slimebreeder:slimecore",
+        "count": 1
+    }
+}

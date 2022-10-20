@@ -1,0 +1,33 @@
+{   "parent": "block/block",
+    "textures": {
+        "crystalmonolithmossy": "slimebreeder:blocks/crystalmonolithmossy",
+        "crystalmonolith": "slimebreeder:blocks/crystalmonolith"
+    },
+    "elements": [
+        {
+            "name": "baseplate1",
+            "from": [ 2, 0, 2 ], 
+            "to": [ 14, 1, 14 ], 
+            "faces": {
+                "north": { "texture": "#crystalmonolithmossy", "uv": [ 4, 14, 16, 15 ] },
+                "east": { "texture": "#crystalmonolithmossy", "uv": [ 0, 15, 12, 16 ] },
+                "south": { "texture": "#crystalmonolithmossy", "uv": [ 0, 15, 11, 16 ], "rotation": 180 },
+                "west": { "texture": "#crystalmonolithmossy", "uv": [ 0, 0, 12, 1 ] },
+                "up": { "texture": "#crystalmonolithmossy", "uv": [ 0, 0, 12, 12 ], "rotation": 90 },
+                "down": { "texture": "#crystalmonolithmossy", "uv": [ 0, 0, 12, 12 ] }
+            }
+        },
+        {
+            "name": "baseplate2",
+            "from": [ 3, 1, 3 ], 
+            "to": [ 13, 3, 13 ], 
+            "faces": {
+                "north": { "texture": "#crystalmonolithmossy", "uv": [ 1, 12, 11, 14 ] },
+                "east": { "texture": "#crystalmonolithmossy", "uv": [ 0, 0, 10, 2 ] },
+                "south": { "texture": "#crystalmonolithmossy", "uv": [ 0, 12, 10, 14 ] },
+                "west": { "texture": "#crystalmonolithmossy", "uv": [ 1, 13, 11, 15 ], "rotation": 180 },
+                "up": { "texture": "#crystalmonolithmossy", "uv": [ 0, 0, 10, 10 ], "rotation": 180 }
+            }
+        }
+    ]
+}

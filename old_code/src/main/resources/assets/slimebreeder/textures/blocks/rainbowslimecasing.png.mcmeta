@@ -1,0 +1,26 @@
+{
+	"animation":{
+		#interpolate will make the frames merge into each other
+		"interpolate": true,
+		#"frames" is a list of the frames you want to display. (0 = the first frame). There are two ways of adding frames:
+		"frames":[
+			{
+				"index":0,
+				"time":5
+			},
+			{
+				"index":1,
+				"time":5
+			},
+			{
+				"index":2,
+				"time":5
+			},
+			{
+				"index":3,
+				"time":5
+			}
+		]
+
+	}
+}
