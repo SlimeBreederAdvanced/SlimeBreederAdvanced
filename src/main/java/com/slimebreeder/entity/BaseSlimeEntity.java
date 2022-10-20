@@ -1,37 +1,26 @@
 package com.slimebreeder.entity;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
-public class BaseSlimeEntity extends Animal implements Enemy {
+public abstract class BaseSlimeEntity extends Animal implements Enemy {
 
-    private static final EntityDataAccessor<Integer> ID_SIZE = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.INT);
-    public static final int MIN_SIZE = 1;
-    public static final int MAX_SIZE = 127;
     public float targetSquish;
     public float squish;
     public float oSquish;
@@ -46,53 +35,12 @@ public class BaseSlimeEntity extends Animal implements Enemy {
 
     }
 
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(ID_SIZE, 1);
-    }
-
-    @VisibleForTesting
-    public void setSize(int pSize, boolean pResetHealth) {
-        int i = Mth.clamp(pSize, 1, 127);
-        this.entityData.set(ID_SIZE, i);
-        this.reapplyPosition();
-        this.refreshDimensions();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(i * i));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double)(0.2F + 0.1F * (float)i));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue((double)i);
-        if (pResetHealth) {
-            this.setHealth(this.getMaxHealth());
-        }
-
-        this.xpReward = i;
-    }
-
-    public int getSize() {
-        return this.entityData.get(ID_SIZE);
-    }
-
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("Size", this.getSize() - 1);
-        pCompound.putBoolean("wasOnGround", this.wasOnGround);
-    }
-
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        this.setSize(pCompound.getInt("Size") + 1, false);
-        super.readAdditionalSaveData(pCompound);
-        this.wasOnGround = pCompound.getBoolean("wasOnGround");
-    }
-
-    public boolean isTiny() {
-        return this.getSize() <= 1;
-    }
-
     protected ParticleOptions getParticleType() {
         return ParticleTypes.ITEM_SLIME;
     }
 
     protected boolean shouldDespawnInPeaceful() {
-        return this.getSize() > 0;
+        return true;
     }
 
     public void tick() {
@@ -100,15 +48,13 @@ public class BaseSlimeEntity extends Animal implements Enemy {
         this.oSquish = this.squish;
         super.tick();
         if (this.onGround && !this.wasOnGround) {
-            int i = this.getSize();
 
-            if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
-            for(int j = 0; j < i * 8; ++j) {
-                float f = this.random.nextFloat() * ((float)Math.PI * 2F);
+            for (int j = 0; j < 8; ++j) {
+                float f = this.random.nextFloat() * ((float) Math.PI * 2F);
                 float f1 = this.random.nextFloat() * 0.5F + 0.5F;
-                float f2 = Mth.sin(f) * (float)i * 0.5F * f1;
-                float f3 = Mth.cos(f) * (float)i * 0.5F * f1;
-                this.level.addParticle(this.getParticleType(), this.getX() + (double)f2, this.getY(), this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
+                float f2 = Mth.sin(f) * 0.5F * f1;
+                float f3 = Mth.cos(f) * 0.5F * f1;
+                this.level.addParticle(this.getParticleType(), this.getX() + (double) f2, this.getY(), this.getZ() + (double) f3, 0.0D, 0.0D, 0.0D);
             }
 
             this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
@@ -137,50 +83,8 @@ public class BaseSlimeEntity extends Animal implements Enemy {
         this.setPos(d0, d1, d2);
     }
 
-    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
-        if (ID_SIZE.equals(pKey)) {
-            this.refreshDimensions();
-            this.setYRot(this.yHeadRot);
-            this.yBodyRot = this.yHeadRot;
-            if (this.isInWater() && this.random.nextInt(20) == 0) {
-                this.doWaterSplashEffect();
-            }
-        }
-
-        super.onSyncedDataUpdated(pKey);
-    }
-
     public EntityType<? extends BaseSlimeEntity> getType() {
-        return (EntityType<? extends BaseSlimeEntity>)super.getType();
-    }
-
-    public void remove(Entity.RemovalReason pReason) {
-        int i = this.getSize();
-        if (!this.level.isClientSide && i > 1 && this.isDeadOrDying()) {
-            Component component = this.getCustomName();
-            boolean flag = this.isNoAi();
-            float f = (float)i / 4.0F;
-            int j = i / 2;
-            int k = 2 + this.random.nextInt(3);
-
-            for(int l = 0; l < k; ++l) {
-                float f1 = ((float)(l % 2) - 0.5F) * f;
-                float f2 = ((float)(l / 2) - 0.5F) * f;
-                BaseSlimeEntity slime = this.getType().create(this.level);
-                if (this.isPersistenceRequired()) {
-                    slime.setPersistenceRequired();
-                }
-
-                slime.setCustomName(component);
-                slime.setNoAi(flag);
-                slime.setInvulnerable(this.isInvulnerable());
-                slime.setSize(j, true);
-                slime.moveTo(this.getX() + (double)f1, this.getY() + 0.5D, this.getZ() + (double)f2, this.random.nextFloat() * 360.0F, 0.0F);
-                this.level.addFreshEntity(slime);
-            }
-        }
-
-        super.remove(pReason);
+        return (EntityType<? extends BaseSlimeEntity>) super.getType();
     }
 
     public void push(Entity pEntity) {
@@ -192,19 +96,19 @@ public class BaseSlimeEntity extends Animal implements Enemy {
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return this.isTiny() ? SoundEvents.SLIME_HURT_SMALL : SoundEvents.SLIME_HURT;
+        return SoundEvents.SLIME_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return this.isTiny() ? SoundEvents.SLIME_DEATH_SMALL : SoundEvents.SLIME_DEATH;
+        return SoundEvents.SLIME_DEATH;
     }
 
     protected SoundEvent getSquishSound() {
-        return this.isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
+        return SoundEvents.SLIME_SQUISH;
     }
 
     public float getSoundVolume() {
-        return 0.4F * (float)this.getSize();
+        return 0.4F;
     }
 
     public int getMaxHeadXRot() {
@@ -215,26 +119,13 @@ public class BaseSlimeEntity extends Animal implements Enemy {
      * Returns {@code true} if the slime makes a sound when it jumps (based upon the slime's size)
      */
     public boolean doPlayJumpSound() {
-        return this.getSize() > 0;
+        return true;
     }
 
     protected void jumpFromGround() {
         Vec3 vec3 = this.getDeltaMovement();
-        this.setDeltaMovement(vec3.x, (double)this.getJumpPower(), vec3.z);
+        this.setDeltaMovement(vec3.x, (double) this.getJumpPower(), vec3.z);
         this.hasImpulse = true;
-    }
-
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
-        RandomSource randomsource = pLevel.getRandom();
-        int i = randomsource.nextInt(3);
-        if (i < 2 && randomsource.nextFloat() < 0.5F * pDifficulty.getSpecialMultiplier()) {
-            ++i;
-        }
-
-        int j = 1 << i;
-        this.setSize(j, true);
-        return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
     @Nullable
@@ -244,19 +135,24 @@ public class BaseSlimeEntity extends Animal implements Enemy {
     }
 
     public float getSoundPitch() {
-        float f = this.isTiny() ? 1.4F : 0.8F;
+        float f = 0.8F;
         return ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) * f;
     }
 
     public SoundEvent getJumpSound() {
-        return this.isTiny() ? SoundEvents.SLIME_JUMP_SMALL : SoundEvents.SLIME_JUMP;
+        return SoundEvents.SLIME_JUMP;
     }
 
     public EntityDimensions getDimensions(Pose pPose) {
-        return super.getDimensions(pPose).scale(0.255F * (float)this.getSize());
+        return super.getDimensions(pPose).scale(0.255F);
     }
 
-    protected boolean spawnCustomParticles() {
-        return false;
+    public static AttributeSupplier.Builder prepareAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 10.0D).
+                add(Attributes.MOVEMENT_SPEED, 0.28D).
+                add(Attributes.FOLLOW_RANGE, 48.0D).
+                add(Attributes.ARMOR, 8.0D).
+                add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
     }
+
 }

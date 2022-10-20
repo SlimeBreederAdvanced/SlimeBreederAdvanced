@@ -1,7 +1,6 @@
 package com.slimebreeder;
 
 import com.mojang.logging.LogUtils;
-import com.slimebreeder.registry.ClientEventHandler;
 import com.slimebreeder.registry.SBEntityTypes;
 import com.slimebreeder.registry.SBItems;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -14,10 +13,9 @@ public class SlimeBreeder {
 
     public static final String MODID = "slimebreeder";
     private static final Logger LOGGER = LogUtils.getLogger();
-    public static final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
     public SlimeBreeder() {
-        ClientEventHandler.INSTANCE.initClient();
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         SBEntityTypes.ENTITY_TYPES.register(modEventBus);
         SBItems.ITEMS.register(modEventBus);
     }
