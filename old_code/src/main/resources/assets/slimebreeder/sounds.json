@@ -1,0 +1,5 @@
+{
+"slimalyser_zap": {"category": "master", "subtitle": "Zap", "sounds": [{"name": "slimebreeder:slimalyser_zap","stream": true}]},
+"coloured_slime_jump": {"category": "master", "subtitle": "Coloured slime jumps", "sounds": [{"name": "slimebreeder:coloured_slime_jump","stream": true}]},
+"coloured_slime_squish": {"category": "master", "subtitle": "Coloured slime squishes", "sounds": [{"name": "slimebreeder:coloured_slime_squish","stream": true}]}
+}

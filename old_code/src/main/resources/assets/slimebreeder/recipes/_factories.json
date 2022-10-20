@@ -1,0 +1,6 @@
+{
+    
+    "recipes": {
+        "core_crafting": "com.itchymichi.slimebreeder.crafting.recipe.CoreCrafting$Factory"
+    }
+}

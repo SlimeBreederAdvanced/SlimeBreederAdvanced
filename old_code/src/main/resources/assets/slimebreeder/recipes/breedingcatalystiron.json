@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "slimebreeder:slimecapsule"
+        },
+        {
+            "item": "minecraft:rotten_flesh"
+        },
+        {
+            "item": "minecraft:spider_eye"
+        }
+    ],
+    "result": {
+        "item": "slimebreeder:breedingcatalystiron",
+        "count": 1
+    }
+}
