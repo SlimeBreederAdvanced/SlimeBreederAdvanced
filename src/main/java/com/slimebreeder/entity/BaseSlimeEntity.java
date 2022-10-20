@@ -3,6 +3,10 @@ package com.slimebreeder.entity;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +30,8 @@ public abstract class BaseSlimeEntity extends Animal implements Enemy {
     public float oSquish;
     private boolean wasOnGround;
 
+    private static final EntityDataAccessor<Integer> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.INT);
+
     public BaseSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new CustomSlimeMoveControl(this);
@@ -33,6 +39,42 @@ public abstract class BaseSlimeEntity extends Animal implements Enemy {
 
     protected void registerGoals() {
 
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("wasOnGround", this.wasOnGround);
+        pCompound.putFloat("Health", this.getHealth());
+        pCompound.putFloat("Speed", this.getSpeed());
+        pCompound.putInt("Hunger", this.getHunger());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.wasOnGround = pCompound.getBoolean("wasOnGround");
+        this.setHealth(pCompound.getFloat("Health"));
+        this.setSpeed(pCompound.getFloat("Speed"));
+        this.setHunger(pCompound.getInt("Hunger"));
+    }
+
+    //SlimeBreeder - Custom Mob AI
+
+    public void setHunger(int newHunger) {
+        this.entityData.set(HUNGER, newHunger);
+    }
+
+    public int getHunger() {
+        return (Integer) this.entityData.get(HUNGER);
+    }
+
+    //SlimeBreeder - end
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(HUNGER, 10);
     }
 
     protected ParticleOptions getParticleType() {

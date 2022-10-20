@@ -20,6 +20,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class LunarSlimeEntity extends BaseSlimeEntity {
 
+    public int dropTime = this.random.nextInt(6000) + 6000;
+
     public LunarSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }

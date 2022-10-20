@@ -1,8 +1,9 @@
-package com.slimebreeder.registry;
+package com.slimebreeder.event;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.entity.LunarSlimeEntity;
 import com.slimebreeder.entity.renderer.LunarSlimeRenderer;
+import com.slimebreeder.registry.SBEntityTypes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
