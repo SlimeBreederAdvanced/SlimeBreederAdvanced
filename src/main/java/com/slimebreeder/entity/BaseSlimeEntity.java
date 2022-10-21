@@ -1,10 +1,13 @@
 package com.slimebreeder.entity;
 
+import com.slimebreeder.SlimeBreeder;
+import com.slimebreeder.SlimeBreederConfig;
 import com.slimebreeder.api.HungerAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,7 +25,9 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -35,6 +40,7 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
     public float oSquish;
     private boolean wasOnGround;
     public int hungerChangeTime;
+    private static final float REDUCTION_AMOUNT = 1.5F;
     private static final int REGEN_SPEED = 20;
     private static final float REGEN_AMOUNT = 1.0F;
     private static final EntityDataAccessor<Float> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
@@ -142,11 +148,6 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
             this.targetSquish = 1.0F;
         }
 
-        //SlimeBreeder - handle Hunger API
-        if (this.getHunger() < this.getMaxHunger() && this.age % REGEN_SPEED == 0) {
-            regenHunger(REGEN_AMOUNT);
-        }
-        //SlimeBreeder - end
         this.wasOnGround = this.onGround;
         this.decreaseSquish();
     }
@@ -232,7 +233,8 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 20.0D).
+        return Monster.createMonsterAttributes().
+                add(Attributes.MAX_HEALTH, 20.0D).
                 add(Attributes.MOVEMENT_SPEED, 0.28D).
                 add(Attributes.FOLLOW_RANGE, 48.0D).
                 add(Attributes.ARMOR, 8.0D).
@@ -242,13 +244,39 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (itemStack.isEdible() && getHunger() < this.getMaxHunger()) {
+        if (itemStack.isEdible() && getHunger() < 20.0D || this.getHunger() <= 0) {
             regenHunger(5.0F);
             this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-           if (!pPlayer.getAbilities().invulnerable) {
-               itemStack.shrink(1);
-           }
+            if (!pPlayer.getAbilities().invulnerable) {
+                itemStack.shrink(1);
+            }
         }
         return super.mobInteract(pPlayer, pHand);
     }
+
+    @Override
+    public void aiStep() {
+        //SlimeBreeder - handle Hunger API
+        if (this.getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
+            if (!this.getLevel().isClientSide() && this.isAlive() && --this.hungerChangeTime <= 0) {
+                this.playSound(SoundEvents.TURTLE_LAY_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                this.spawnAtLocation(Items.SLIME_BALL);
+                this.gameEvent(GameEvent.ENTITY_PLACE);
+                this.hungerChangeTime = this.random.nextInt(3000) + 3000;
+                this.reduceHunger(3.0F);
+            }
+        }
+
+        if (this.getHunger() <= 0) {
+            this.getLevel().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+            this.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + "slime.nohungervalue"));
+        }
+
+        if (this.getHunger() < this.getMaxHunger() && this.getAge() % REGEN_SPEED == 0) {
+            this.regenHunger(REGEN_AMOUNT);
+            this.getLevel().addParticle(ParticleTypes.WITCH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+        }
+        super.aiStep();
+    }
+    //SlimeBreeder - end
 }

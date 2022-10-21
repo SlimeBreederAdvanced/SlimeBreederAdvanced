@@ -16,11 +16,11 @@ import org.slf4j.Logger;
 public class SlimeBreeder {
 
     public static final String MODID = "slimebreeder";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public SlimeBreeder() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        SBEntityTypes.ENTITY_TYPES.register(modEventBus);
+        SBEntityTypes.ENTITIES.register(modEventBus);
         SBItems.ITEMS.register(modEventBus);
         SBBlocks.BLOCKS.register(modEventBus);
         SlimeBreederEventSubscriber.init();
