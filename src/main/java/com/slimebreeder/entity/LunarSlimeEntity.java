@@ -1,5 +1,7 @@
 package com.slimebreeder.entity;
 
+import com.slimebreeder.api.SlimeType;
+import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.control.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.control.CustomSlimeRandomDirectionGoal;
@@ -17,7 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class LunarSlimeEntity extends BaseSlimeEntity {
+public class LunarSlimeEntity extends BaseSlimeEntity implements SlimeTypeAPI {
 
     public LunarSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -68,5 +70,15 @@ public class LunarSlimeEntity extends BaseSlimeEntity {
     @Override
     public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
         return SBEntityTypes.LUNAR_SLIME_ENEITY.get().create(pLevel);
+    }
+
+    @Override
+    public SlimeType getSlimeType() {
+        return SlimeType.LUNAR_SLIME;
+    }
+
+    @Override
+    public SlimeType setSlimeType() {
+        return this.getSlimeType();
     }
 }
