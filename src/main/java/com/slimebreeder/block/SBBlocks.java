@@ -2,7 +2,7 @@ package com.slimebreeder.block;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.SlimeBreederTab;
-import com.slimebreeder.registry.SBItems;
+import com.slimebreeder.item.SBItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;

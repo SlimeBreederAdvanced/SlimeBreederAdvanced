@@ -18,7 +18,7 @@ public class SlimeBreederConfig {
     SlimeBreederConfig(ForgeConfigSpec.Builder builder) {
 
         builder.comment("Slimebreeder Mod configuration settings")
-                .push("general");
+                .push("common");
 
         enableHungerReduction = builder
                 .comment("Set this to true to enbale Custom slime's hunger reduction.")

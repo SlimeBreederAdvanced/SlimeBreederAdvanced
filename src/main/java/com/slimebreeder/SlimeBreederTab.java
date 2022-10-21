@@ -9,7 +9,7 @@ public class SlimeBreederTab extends CreativeModeTab {
     public static final SlimeBreederTab TAB = new SlimeBreederTab();
 
     public SlimeBreederTab() {
-        super("tab");
+        super(SlimeBreeder.MODID + "tab");
     }
 
     @Override

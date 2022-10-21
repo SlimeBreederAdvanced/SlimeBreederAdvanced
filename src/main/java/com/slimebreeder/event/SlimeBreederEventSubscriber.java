@@ -11,15 +11,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class SlimeBreederEventSubscriber {
@@ -28,7 +25,6 @@ public class SlimeBreederEventSubscriber {
         final IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addListener(SlimeBreederEventSubscriber::onEntityDamage);
         bus.addListener(SlimeBreederEventSubscriber::onEntityTick);
-        bus.addListener(SlimeBreederEventSubscriber::onEntityInteract);
     }
 
     public static void onEntityDamage(LivingDamageEvent event) {
@@ -48,7 +44,7 @@ public class SlimeBreederEventSubscriber {
     }
 
     public static void onEntityTick(LivingEvent.LivingTickEvent event) {
-        final float REDUCTION_AMOUNT = 0.5f;
+        final float REDUCTION_AMOUNT = 0.1f;
         Entity entity = event.getEntity();
         if (entity instanceof BaseSlimeEntity && ((BaseSlimeEntity) entity).getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
             if (!entity.getLevel().isClientSide() && entity.isAlive() && --((BaseSlimeEntity) entity).hungerChangeTime <= 0) {
@@ -60,19 +56,6 @@ public class SlimeBreederEventSubscriber {
             if (((BaseSlimeEntity) entity).getHunger() == 0) {
                 entity.getLevel().addParticle(ParticleTypes.ANGRY_VILLAGER, entity.getX(), entity.getY(), entity.getZ(), 0.0D, 0.0D, 0.0D);
                 entity.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + "slime.nohungervalue"));
-            }
-        }
-    }
-
-    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        Entity entity = event.getTarget();
-        Player player = event.getEntity();
-        ItemStack itemStack = player.getItemInHand(event.getHand());
-        if (entity instanceof BaseSlimeEntity && itemStack.isEdible() && ((BaseSlimeEntity) entity).getHunger() == 0) {
-            ((BaseSlimeEntity) entity).regenHunger(0.5F);
-            entity.getLevel().addParticle(ParticleTypes.HEART, entity.getX(), entity.getY(), entity.getZ(), 0.0D, 0.0D, 0.0D);
-            if (!player.getAbilities().invulnerable) {
-                itemStack.shrink(1);
             }
         }
     }

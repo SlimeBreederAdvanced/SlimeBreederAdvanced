@@ -1,4 +1,4 @@
-package com.slimebreeder.registry;
+package com.slimebreeder.item;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.SlimeBreederTab;

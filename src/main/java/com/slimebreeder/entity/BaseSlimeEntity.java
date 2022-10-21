@@ -12,12 +12,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -228,11 +232,23 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 10.0D).
+        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 20.0D).
                 add(Attributes.MOVEMENT_SPEED, 0.28D).
                 add(Attributes.FOLLOW_RANGE, 48.0D).
                 add(Attributes.ARMOR, 8.0D).
                 add(Attributes.KNOCKBACK_RESISTANCE, 0.85D);
     }
 
+    @Override
+    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemStack = pPlayer.getItemInHand(pHand);
+        if (itemStack.isEdible() && getHunger() < this.getMaxHunger()) {
+            regenHunger(5.0F);
+            this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+           if (!pPlayer.getAbilities().invulnerable) {
+               itemStack.shrink(1);
+           }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
 }
