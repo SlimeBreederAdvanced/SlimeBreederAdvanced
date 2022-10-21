@@ -1,7 +1,6 @@
-package com.slimebreeder.registry;
+package com.slimebreeder.entity;
 
 import com.slimebreeder.SlimeBreeder;
-import com.slimebreeder.entity.LunarSlimeEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.registries.DeferredRegister;
