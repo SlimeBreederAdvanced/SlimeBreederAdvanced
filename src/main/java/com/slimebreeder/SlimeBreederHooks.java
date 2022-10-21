@@ -6,6 +6,7 @@ import com.slimebreeder.item.SBItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -35,13 +36,16 @@ public class SlimeBreederHooks {
                 SlimeBreederHooks.handleSlimeTypes(entity);
                 entity.gameEvent(GameEvent.ENTITY_PLACE);
                 entity.hungerChangeTime = entity.getRandom().nextInt(3000) + 3000;
-                entity.reduceHunger(4);
+                entity.reduceHunger(2.0F);
             }
         }
 
         if (entity.getHunger() <= 4) {
             entity.getLevel().addParticle(ParticleTypes.ANGRY_VILLAGER, entity.getX(), entity.getY(), entity.getZ(), 0.0D, 0.0D, 0.0D);
             entity.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + "slime.nohungervalue"));
+        }
+        if (entity.getHunger() <= 0) {
+            entity.remove(Entity.RemovalReason.KILLED);
         }
     }
 
@@ -64,13 +68,13 @@ public class SlimeBreederHooks {
         entities.stream().findFirst().ifPresent(item -> {
             ItemStack itemStack = item.getItem();
             ItemStack absorbedStack = itemStack.split(1);
-            if (itemStack.isEdible() && entity.getHunger() < 20.0D || entity.getHunger() <= 0) {
+            if (itemStack.isEdible() && entity.getHunger() < 20.0D) {
                 entity.setAbsorbedItem(absorbedStack);
-                entity.getLevel().addParticle(ParticleTypes.HEART, entity.getX(), entity.getY(), entity.getZ(), 0.0D, 0.0D, 0.0D);
                 if (itemStack.isEmpty()) {
                     item.discard();
                 }
-                entity.regenHunger(2);
+                entity.regenHunger(5.0F);
+                entity.getLevel().addParticle(ParticleTypes.HEART, entity.getX(), entity.getY(), entity.getZ(), 0.0D, 0.0D, 0.0D);
             }
         });
     }

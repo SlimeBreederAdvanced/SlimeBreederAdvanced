@@ -37,8 +37,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     public float oSquish;
     private boolean wasOnGround;
     public int hungerChangeTime;
-    public static final float REGEN_AMOUNT = 40.0F;
-    public static boolean canAbsorb = true;
     private static final EntityDataAccessor<Float> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> MAX_HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Integer> SLIME_SIZE = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.INT);
@@ -140,8 +138,8 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SLIME_SIZE, 1);
-        this.entityData.define(MAX_HUNGER, 0.0F);
-        this.entityData.define(HUNGER, 0.0F);
+        this.entityData.define(MAX_HUNGER, 20.0F);
+        this.entityData.define(HUNGER, 12.0F);
         this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
 
