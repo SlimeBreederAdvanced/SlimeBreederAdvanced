@@ -5,18 +5,15 @@ import com.slimebreeder.api.AbsorberAPI;
 import com.slimebreeder.api.HungerAPI;
 import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -116,7 +113,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
 
     @Override
     public void setMaxHunger(float maxHunger) {
-        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0.0F, this.getMaxHunger()));
+        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0, this.getMaxHunger()));
     }
 
     @Override
@@ -309,7 +306,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        SlimeBreederHooks.handleSlimeInteract(this, pPlayer, pHand);
         return super.mobInteract(pPlayer, pHand);
     }
 
