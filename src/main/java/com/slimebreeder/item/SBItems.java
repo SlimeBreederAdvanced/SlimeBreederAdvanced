@@ -18,15 +18,15 @@ public class SBItems {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, SlimeBreeder.MODID);
 
-    public static final RegistryObject<Item> LUNAR_SLIME_EGG = registerSpawnEgg(SBEntityTypes.LUNAR_SLIME_ENEITY, 0xff0000, 0x00ff00);
 
-    private static <T extends EntityType<? extends Mob>> RegistryObject<Item> registerSpawnEgg(RegistryObject<T> entity, int color1, int color2)
-    {
+    public static final RegistryObject<Item> LUNAR_SLIME_EGG = registerSpawnEgg(SBEntityTypes.LUNAR_SLIME_ENEITY, 0xff0000, 0x00ff00);
+    public static final RegistryObject<Item> HUNGER_CHECK_STICK = register("hunger_check_stick", HungerCheckStick::new);
+
+    private static <T extends EntityType<? extends Mob>> RegistryObject<Item> registerSpawnEgg(RegistryObject<T> entity, int color1, int color2) {
         return register("spawn_egg/" + entity.getId().getPath(), () -> new ForgeSpawnEggItem(entity, color1, color2, new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
 
-    private static RegistryObject<Item> register(String name)
-    {
+    private static RegistryObject<Item> register(String name) {
         return register(name, () -> new Item(new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
 

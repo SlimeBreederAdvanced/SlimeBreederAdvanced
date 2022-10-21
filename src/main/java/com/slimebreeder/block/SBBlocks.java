@@ -23,23 +23,19 @@ public class SBBlocks {
     public static final RegistryObject<Block> JAR_BLOCK = register("jar", JarBlock::new, SlimeBreederTab.TAB);
     public static final RegistryObject<Block> COW_JAR_BLOCK = register("cow_jar", CowJarBlock::new, SlimeBreederTab.TAB);
 
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier)
-    {
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier) {
         return register(name, blockSupplier, (Function<T, ? extends BlockItem>) null);
     }
 
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, CreativeModeTab group)
-    {
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, CreativeModeTab group) {
         return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties().tab(group)));
     }
 
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, Item.Properties blockItemProperties)
-    {
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, Item.Properties blockItemProperties) {
         return register(name, blockSupplier, block -> new BlockItem(block, blockItemProperties));
     }
 
-    public static <T extends Block> RegistryObject<T> registerBlock(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory)
-    {
+    public static <T extends Block> RegistryObject<T> registerBlock(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory) {
         final String actualName = name.toLowerCase(Locale.ROOT);
         final RegistryObject<T> block = blocks.register(actualName, blockSupplier);
         if (blockItemFactory != null)
@@ -49,8 +45,7 @@ public class SBBlocks {
         return block;
     }
 
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory)
-    {
+    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory) {
         return registerBlock(SBBlocks.BLOCKS, SBItems.ITEMS, name, blockSupplier, blockItemFactory);
     }
 }
