@@ -2,7 +2,7 @@ package com.slimebreeder.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.slimebreeder.SlimeBreeder;
-import com.slimebreeder.entity.LunarSlimeEntity;
+import com.slimebreeder.entity.AquaSlimeEntity;
 import com.slimebreeder.item.layer.SlimeItemLayer;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.ModelLayers;
@@ -16,22 +16,22 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LunarSlimeRenderer extends MobRenderer<LunarSlimeEntity, SlimeModel<LunarSlimeEntity>> {
+public class AquaSlimeRenderer extends MobRenderer<AquaSlimeEntity, SlimeModel<AquaSlimeEntity>> {
 
-    public LunarSlimeRenderer(EntityRendererProvider.Context pContext) {
+    public AquaSlimeRenderer(EntityRendererProvider.Context pContext) {
         super(pContext, new SlimeModel<>(pContext.bakeLayer(ModelLayers.SLIME)), 0.25F);
         this.addLayer(new SlimeOuterLayer<>(this, pContext.getModelSet()));
         this.addLayer(new SlimeItemLayer<>(this));
     }
 
     @Override
-    public void render(LunarSlimeEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(AquaSlimeEntity pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
         this.shadowRadius = 0.25F * (float)pEntity.getSize();
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
     }
 
     @Override
-    protected void scale(LunarSlimeEntity pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
+    protected void scale(AquaSlimeEntity pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
         float f = 0.999F;
         pMatrixStack.scale(f, f, f);
         pMatrixStack.translate(0.0D, (double)0.001F, 0.0D);
@@ -42,7 +42,7 @@ public class LunarSlimeRenderer extends MobRenderer<LunarSlimeEntity, SlimeModel
     }
 
     @Override
-    public ResourceLocation getTextureLocation(LunarSlimeEntity pEntity) {
-        return new ResourceLocation(SlimeBreeder.MODID, "textures/entity/slime/lunar_slime.png");
+    public ResourceLocation getTextureLocation(AquaSlimeEntity pEntity) {
+        return new ResourceLocation(SlimeBreeder.MODID, "textures/entity/slime/aqua_slime.png");
     }
 }

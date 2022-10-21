@@ -7,7 +7,7 @@ plugins {
 
 version = '1.0'
 group = 'com.yourname.modid'
-archivesBaseName = 'modid'
+archivesBaseName = project.mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 

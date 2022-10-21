@@ -16,8 +16,13 @@ public class SBEntityTypes {
 
     public static RegistryObject<EntityType<LunarSlimeEntity>> LUNAR_SLIME_ENEITY = register("lunar_slime",
                     EntityType.Builder.of(LunarSlimeEntity::new, MobCategory.CREATURE)
-                            .sized(0.5F, 0.7F)
+                            .sized(2.04F, 2.04F)
                             .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<AquaSlimeEntity>> AQUA_SLIME_ENEITY = register("aqua_slime",
+            EntityType.Builder.of(AquaSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
 
     public static <E extends Entity> RegistryObject<EntityType<E>> register(String name, EntityType.Builder<E> builder) {
         return register(name, builder, true);
