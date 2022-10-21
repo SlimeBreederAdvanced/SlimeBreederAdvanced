@@ -6,7 +6,7 @@ plugins {
 }
 
 version = '1.0'
-group = 'com.yourname.modid'
+group = 'com.slimebreeder'
 archivesBaseName = project.mod_id
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)

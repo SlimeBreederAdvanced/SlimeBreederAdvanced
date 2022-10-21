@@ -3,6 +3,7 @@ package com.slimebreeder.entity;
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
@@ -104,131 +105,11 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
 
             this.xBodyRot += (-90.0F - this.xBodyRot) * 0.02F;
         }
-    }
-
-    @Override
-    public void tick() {
-        if (net.minecraftforge.common.ForgeHooks.onLivingTick(this)) return;
-        this.baseTick();
-        if (!this.level.isClientSide) {
-            int i = this.getArrowCount();
-            if (i > 0) {
-                if (this.removeArrowTime <= 0) {
-                    this.removeArrowTime = 20 * (30 - i);
-                }
-
-                --this.removeArrowTime;
-                if (this.removeArrowTime <= 0) {
-                    this.setArrowCount(i - 1);
-                }
-            }
-
-            int j = this.getStingerCount();
-            if (j > 0) {
-                if (this.removeStingerTime <= 0) {
-                    this.removeStingerTime = 20 * (30 - j);
-                }
-
-                --this.removeStingerTime;
-                if (this.removeStingerTime <= 0) {
-                    this.setStingerCount(j - 1);
-                }
-            }
-
-            if (this.tickCount % 20 == 0) {
-                this.getCombatTracker().recheckStatus();
-            }
-
-            if (this.isSleeping()) {
-                this.stopSleeping();
-            }
+        if (this.isInWater()) {
+            this.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
         }
-
-        if (!this.isRemoved()) {
-            this.aiStep();
-        }
-
-        double d1 = this.getX() - this.xo;
-        double d0 = this.getZ() - this.zo;
-        float f = (float)(d1 * d1 + d0 * d0);
-        float f1 = this.yBodyRot;
-        float f2 = 0.0F;
-        this.oRun = this.run;
-        float f3 = 0.0F;
-        if (f > 0.0025000002F) {
-            f3 = 1.0F;
-            f2 = (float)Math.sqrt((double)f) * 3.0F;
-            float f4 = (float)Mth.atan2(d0, d1) * (180F / (float)Math.PI) - 90.0F;
-            float f5 = Mth.abs(Mth.wrapDegrees(this.getYRot()) - f4);
-            if (95.0F < f5 && f5 < 265.0F) {
-                f1 = f4 - 180.0F;
-            } else {
-                f1 = f4;
-            }
-        }
-
-        if (this.attackAnim > 0.0F) {
-            f1 = this.getYRot();
-        }
-
-        if (!this.onGround) {
-            f3 = 0.0F;
-        }
-
-        this.run += (f3 - this.run) * 0.3F;
-        this.level.getProfiler().push("headTurn");
-        f2 = this.tickHeadTurn(f1, f2);
-        this.level.getProfiler().pop();
-        this.level.getProfiler().push("rangeChecks");
-
-        while(this.getYRot() - this.yRotO < -180.0F) {
-            this.yRotO -= 360.0F;
-        }
-
-        while(this.getYRot() - this.yRotO >= 180.0F) {
-            this.yRotO += 360.0F;
-        }
-
-        while(this.yBodyRot - this.yBodyRotO < -180.0F) {
-            this.yBodyRotO -= 360.0F;
-        }
-
-        while(this.yBodyRot - this.yBodyRotO >= 180.0F) {
-            this.yBodyRotO += 360.0F;
-        }
-
-        while(this.getXRot() - this.xRotO < -180.0F) {
-            this.xRotO -= 360.0F;
-        }
-
-        while(this.getXRot() - this.xRotO >= 180.0F) {
-            this.xRotO += 360.0F;
-        }
-
-        while(this.yHeadRot - this.yHeadRotO < -180.0F) {
-            this.yHeadRotO -= 360.0F;
-        }
-
-        while(this.yHeadRot - this.yHeadRotO >= 180.0F) {
-            this.yHeadRotO += 360.0F;
-        }
-
-        this.level.getProfiler().pop();
-        this.animStep += f2;
-        if (this.isFallFlying()) {
-            ++this.fallFlyTicks;
-        } else {
-            this.fallFlyTicks = 0;
-        }
-
-        if (this.isSleeping()) {
-            this.setXRot(0.0F);
-        }
-        if (!this.level.isClientSide) {
-            this.tickLeash();
-            if (this.tickCount % 5 == 0) {
-                this.updateControlFlags();
-            }
+        if (!this.isInWater()) {
+            this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS));
         }
     }
 
