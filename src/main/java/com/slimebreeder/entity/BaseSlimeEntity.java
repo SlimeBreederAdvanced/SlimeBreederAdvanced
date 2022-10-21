@@ -1,5 +1,6 @@
 package com.slimebreeder.entity;
 
+import com.slimebreeder.api.HungerAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -16,21 +17,24 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseSlimeEntity extends Animal implements Enemy {
+@SuppressWarnings("unchecked")
+public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
 
     public float targetSquish;
     public float squish;
     public float oSquish;
     private boolean wasOnGround;
-
-    private static final EntityDataAccessor<Integer> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.INT);
+    public int hungerChangeTime;
+    private static final int REGEN_SPEED = 20;
+    private static final float REGEN_AMOUNT = 1.0F;
+    private static final EntityDataAccessor<Float> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Float> MAX_HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
 
     public BaseSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -47,7 +51,9 @@ public abstract class BaseSlimeEntity extends Animal implements Enemy {
         pCompound.putBoolean("wasOnGround", this.wasOnGround);
         pCompound.putFloat("Health", this.getHealth());
         pCompound.putFloat("Speed", this.getSpeed());
-        pCompound.putInt("Hunger", this.getHunger());
+        pCompound.putFloat("MaxHunger", this.getMaxHunger());
+        pCompound.putFloat("Hunger", this.getHunger());
+        pCompound.putInt("HungerChangeTime", this.hungerChangeTime);
     }
 
     @Override
@@ -56,26 +62,53 @@ public abstract class BaseSlimeEntity extends Animal implements Enemy {
         this.wasOnGround = pCompound.getBoolean("wasOnGround");
         this.setHealth(pCompound.getFloat("Health"));
         this.setSpeed(pCompound.getFloat("Speed"));
-        this.setHunger(pCompound.getInt("Hunger"));
+        this.setMaxHunger(pCompound.getFloat("MaxHunger"));
+        this.setHunger(pCompound.getFloat("Hunger"));
+        if (pCompound.contains("HungerChangeTime")) {
+            this.hungerChangeTime = pCompound.getInt("HungerChangeTime");
+        }
     }
 
-    //SlimeBreeder - Custom Mob AI
+    //SlimeBreeder - Custom Mob AI , Hunger API
 
-    public void setHunger(int newHunger) {
-        this.entityData.set(HUNGER, newHunger);
+    @Override
+    public void setHunger(float hunger) {
+        this.entityData.set(HUNGER, Math.min(getMaxHunger(), hunger));
     }
 
-    public int getHunger() {
-        return (Integer) this.entityData.get(HUNGER);
+    @Override
+    public void setMaxHunger(float maxHunger) {
+        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0.0F, this.getMaxHunger()));
     }
 
-    //SlimeBreeder - end
+    @Override
+    public void regenHunger(float hunger) {
+        this.setHunger(this.getHunger() + hunger);
+    }
+
+    @Override
+    public float getHunger() {
+        return this.entityData.get(HUNGER);
+    }
+
+    @Override
+    public float getMaxHunger() {
+        return (float) this.getAttributeValue(Attributes.MAX_HEALTH);
+    }
+
+    @Override
+    public void reduceHunger(float hunger) {
+        this.setHunger(this.getHunger() - hunger);
+    }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(HUNGER, 10);
+        this.entityData.define(MAX_HUNGER, 0.0F);
+        this.entityData.define(HUNGER, 0.0F);
     }
+
+    //SlimeBreeder - end
 
     protected ParticleOptions getParticleType() {
         return ParticleTypes.ITEM_SLIME;
@@ -105,6 +138,11 @@ public abstract class BaseSlimeEntity extends Animal implements Enemy {
             this.targetSquish = 1.0F;
         }
 
+        //SlimeBreeder - handle Hunger API
+        if (this.getHunger() < this.getMaxHunger() && this.age % REGEN_SPEED == 0) {
+            regenHunger(REGEN_AMOUNT);
+        }
+        //SlimeBreeder - end
         this.wasOnGround = this.onGround;
         this.decreaseSquish();
     }

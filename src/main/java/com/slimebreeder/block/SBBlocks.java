@@ -1,6 +1,7 @@
 package com.slimebreeder.block;
 
 import com.slimebreeder.SlimeBreeder;
+import com.slimebreeder.SlimeBreederTab;
 import com.slimebreeder.registry.SBItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -19,7 +20,8 @@ public class SBBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SlimeBreeder.MODID);
 
-    public static final RegistryObject<Block> JAR_BLOCK = register("jar_block", JarBlock::new, CreativeModeTab.TAB_MISC);
+    public static final RegistryObject<Block> JAR_BLOCK = register("jar", JarBlock::new, SlimeBreederTab.TAB);
+    public static final RegistryObject<Block> COW_JAR_BLOCK = register("cow_jar", CowJarBlock::new, SlimeBreederTab.TAB);
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier)
     {

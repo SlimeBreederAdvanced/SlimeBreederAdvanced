@@ -1,9 +1,10 @@
 package com.slimebreeder.registry;
 
 import com.slimebreeder.SlimeBreeder;
+import com.slimebreeder.SlimeBreederTab;
+import com.slimebreeder.entity.SBEntityTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
@@ -21,12 +22,12 @@ public class SBItems {
 
     private static <T extends EntityType<? extends Mob>> RegistryObject<Item> registerSpawnEgg(RegistryObject<T> entity, int color1, int color2)
     {
-        return register("spawn_egg/" + entity.getId().getPath(), () -> new ForgeSpawnEggItem(entity, color1, color2, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+        return register("spawn_egg/" + entity.getId().getPath(), () -> new ForgeSpawnEggItem(entity, color1, color2, new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
 
-    private static RegistryObject<Item> register(String name, CreativeModeTab group)
+    private static RegistryObject<Item> register(String name)
     {
-        return register(name, () -> new Item(new Item.Properties().tab(group)));
+        return register(name, () -> new Item(new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
 
     private static <T extends Item> RegistryObject<T> register(String name, Supplier<T> item)

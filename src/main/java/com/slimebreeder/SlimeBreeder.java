@@ -2,11 +2,14 @@ package com.slimebreeder;
 
 import com.mojang.logging.LogUtils;
 import com.slimebreeder.block.SBBlocks;
+import com.slimebreeder.event.ClientEventSubscriber;
 import com.slimebreeder.event.SlimeBreederEventSubscriber;
-import com.slimebreeder.registry.SBEntityTypes;
+import com.slimebreeder.entity.SBEntityTypes;
 import com.slimebreeder.registry.SBItems;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -22,6 +25,10 @@ public class SlimeBreeder {
         SBItems.ITEMS.register(modEventBus);
         SBBlocks.BLOCKS.register(modEventBus);
         SlimeBreederEventSubscriber.init();
+        ClientEventSubscriber.init();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SlimeBreederConfig.configSpec);
+        modEventBus.register(SlimeBreederConfig.class);
     }
 
 }

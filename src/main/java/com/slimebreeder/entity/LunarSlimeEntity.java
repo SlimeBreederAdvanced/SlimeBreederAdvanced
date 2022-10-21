@@ -3,7 +3,6 @@ package com.slimebreeder.entity;
 import com.slimebreeder.entity.control.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.control.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.control.CustomSlimeRandomDirectionGoal;
-import com.slimebreeder.registry.SBEntityTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -19,8 +18,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class LunarSlimeEntity extends BaseSlimeEntity {
-
-    public int dropTime = this.random.nextInt(6000) + 6000;
 
     public LunarSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
