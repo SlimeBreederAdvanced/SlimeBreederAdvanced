@@ -2,7 +2,9 @@ package com.slimebreeder.entity;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.SlimeBreederConfig;
+import com.slimebreeder.SlimeBreederHooks;
 import com.slimebreeder.api.HungerAPI;
+import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
+public abstract class BaseSlimeEntity extends Animal implements HungerAPI, SlimeTypeAPI {
 
     public float targetSquish;
     public float squish;
@@ -260,7 +262,7 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         if (this.getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
             if (!this.getLevel().isClientSide() && this.isAlive() && --this.hungerChangeTime <= 0) {
                 this.playSound(SoundEvents.TURTLE_LAY_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.spawnAtLocation(Items.SLIME_BALL);
+                SlimeBreederHooks.handleSlimeTypes(this);
                 this.gameEvent(GameEvent.ENTITY_PLACE);
                 this.hungerChangeTime = this.random.nextInt(3000) + 3000;
                 this.reduceHunger(3.0F);
@@ -270,11 +272,6 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         if (this.getHunger() <= 0) {
             this.getLevel().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             this.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + "slime.nohungervalue"));
-        }
-
-        if (this.getHunger() < this.getMaxHunger() && this.getAge() % REGEN_SPEED == 0) {
-            this.regenHunger(REGEN_AMOUNT);
-            this.getLevel().addParticle(ParticleTypes.WITCH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
         }
         super.aiStep();
     }

@@ -22,6 +22,9 @@ public class SBItems {
     public static final RegistryObject<Item> LUNAR_SLIME_EGG = registerSpawnEgg(SBEntityTypes.LUNAR_SLIME_ENEITY, 0xff0000, 0x00ff00);
     public static final RegistryObject<Item> HUNGER_CHECK_STICK = register("hunger_check_stick", HungerCheckStick::new);
 
+    public static final RegistryObject<Item> LUNAR_SLIME_BALL = register("lunar_slime_ball", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LUNAR_SLIME_GEL = register("lunar_slime_gel", () -> new Item(new Item.Properties()));
+
     private static <T extends EntityType<? extends Mob>> RegistryObject<Item> registerSpawnEgg(RegistryObject<T> entity, int color1, int color2) {
         return register("spawn_egg/" + entity.getId().getPath(), () -> new ForgeSpawnEggItem(entity, color1, color2, new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
