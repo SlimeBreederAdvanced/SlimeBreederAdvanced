@@ -138,8 +138,8 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SLIME_SIZE, 1);
-        this.entityData.define(MAX_HUNGER, 20.0F);
-        this.entityData.define(HUNGER, 12.0F);
+        this.entityData.define(MAX_HUNGER, 0.0F);
+        this.entityData.define(HUNGER, 0.0F);
         this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
 
@@ -317,7 +317,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     @Override
     protected void dropAllDeathLoot(DamageSource pDamageSource) {
       SlimeBreederHooks.handleDropDeath(this);
-        super.dropAllDeathLoot(pDamageSource);
+      super.dropAllDeathLoot(pDamageSource);
     }
 
     @Override
