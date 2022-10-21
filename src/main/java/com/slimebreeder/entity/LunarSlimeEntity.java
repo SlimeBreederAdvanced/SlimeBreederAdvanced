@@ -1,7 +1,6 @@
 package com.slimebreeder.entity;
 
 import com.slimebreeder.api.SlimeType;
-import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.control.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.control.CustomSlimeRandomDirectionGoal;
@@ -9,16 +8,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class LunarSlimeEntity extends BaseSlimeEntity implements SlimeTypeAPI {
+public class LunarSlimeEntity extends BaseSlimeEntity {
 
-    public LunarSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public LunarSlimeEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 

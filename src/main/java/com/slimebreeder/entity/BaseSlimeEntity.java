@@ -1,13 +1,13 @@
 package com.slimebreeder.entity;
 
-import com.slimebreeder.SlimeBreeder;
-import com.slimebreeder.SlimeBreederConfig;
+import com.slimebreeder.SlimeBreederHooks;
+import com.slimebreeder.api.AbsorberAPI;
 import com.slimebreeder.api.HungerAPI;
+import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -21,38 +21,55 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unchecked")
-public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
+public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI, SlimeTypeAPI, AbsorberAPI {
 
     public float targetSquish;
     public float squish;
     public float oSquish;
     private boolean wasOnGround;
     public int hungerChangeTime;
-    private static final float REDUCTION_AMOUNT = 1.5F;
-    private static final int REGEN_SPEED = 20;
-    private static final float REGEN_AMOUNT = 1.0F;
     private static final EntityDataAccessor<Float> HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> MAX_HUNGER = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Integer> SLIME_SIZE = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<ItemStack> DATA_ABSORBED = SynchedEntityData.defineId(BaseSlimeEntity.class, EntityDataSerializers.ITEM_STACK);
 
-    public BaseSlimeEntity(EntityType<? extends Animal> pEntityType, Level pLevel) {
+    public BaseSlimeEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new CustomSlimeMoveControl(this);
+        this.setSize(2, false);
     }
 
+    @Override
     protected void registerGoals() {
 
+    }
+
+    public void setSize(int pSize, boolean pResetHealth) {
+        int i = Mth.clamp(pSize, 1, 127);
+        this.entityData.set(SLIME_SIZE, i);
+        this.reapplyPosition();
+        this.refreshDimensions();
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(i * i));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double)(0.2F + 0.1F * (float)i));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue((double)i);
+        if (pResetHealth) {
+            this.setHealth(this.getMaxHealth());
+        }
+
+        this.xpReward = i;
+    }
+
+    public int getSize() {
+        return this.entityData.get(SLIME_SIZE);
     }
 
     @Override
@@ -64,6 +81,8 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         pCompound.putFloat("MaxHunger", this.getMaxHunger());
         pCompound.putFloat("Hunger", this.getHunger());
         pCompound.putInt("HungerChangeTime", this.hungerChangeTime);
+        pCompound.putInt("Size", this.getSize());
+        pCompound.put("slimebreeder:absorbed_item", getAbsorbedItem().save(new CompoundTag()));
     }
 
     @Override
@@ -77,6 +96,10 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         if (pCompound.contains("HungerChangeTime")) {
             this.hungerChangeTime = pCompound.getInt("HungerChangeTime");
         }
+        if (pCompound.contains("Size")) {
+            this.setSize(2, false);
+        }
+        this.setAbsorbedItem(ItemStack.of(pCompound.getCompound("slimebreeder:absorbed_item")));
     }
 
     //SlimeBreeder - Custom Mob AI , Hunger API
@@ -88,7 +111,7 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
 
     @Override
     public void setMaxHunger(float maxHunger) {
-        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0.0F, this.getMaxHunger()));
+        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0, this.getMaxHunger()));
     }
 
     @Override
@@ -114,8 +137,10 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(MAX_HUNGER, 0.0F);
-        this.entityData.define(HUNGER, 0.0F);
+        this.entityData.define(SLIME_SIZE, 1);
+        this.entityData.define(MAX_HUNGER, 20.0F);
+        this.entityData.define(HUNGER, 12.0F);
+        this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
 
     //SlimeBreeder - end
@@ -124,22 +149,26 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         return ParticleTypes.ITEM_SLIME;
     }
 
+    @Override
     protected boolean shouldDespawnInPeaceful() {
-        return true;
+        return this.getSize() > 0;
     }
 
+    @Override
     public void tick() {
         this.squish += (this.targetSquish - this.squish) * 0.5F;
         this.oSquish = this.squish;
         super.tick();
         if (this.onGround && !this.wasOnGround) {
+            int i = this.getSize();
 
-            for (int j = 0; j < 8; ++j) {
-                float f = this.random.nextFloat() * ((float) Math.PI * 2F);
+            if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
+            for(int j = 0; j < i * 8; ++j) {
+                float f = this.random.nextFloat() * ((float)Math.PI * 2F);
                 float f1 = this.random.nextFloat() * 0.5F + 0.5F;
-                float f2 = Mth.sin(f) * 0.5F * f1;
-                float f3 = Mth.cos(f) * 0.5F * f1;
-                this.level.addParticle(this.getParticleType(), this.getX() + (double) f2, this.getY(), this.getZ() + (double) f3, 0.0D, 0.0D, 0.0D);
+                float f2 = Mth.sin(f) * (float)i * 0.5F * f1;
+                float f3 = Mth.cos(f) * (float)i * 0.5F * f1;
+                this.level.addParticle(this.getParticleType(), this.getX() + (double)f2, this.getY(), this.getZ() + (double)f3, 0.0D, 0.0D, 0.0D);
             }
 
             this.playSound(this.getSquishSound(), this.getSoundVolume(), ((this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F) / 0.8F);
@@ -152,6 +181,14 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         this.decreaseSquish();
     }
 
+    /**
+     * Called when the slime spawns particles on landing, see onUpdate.
+     * Return true to prevent the spawning of the default particles.
+     */
+    protected boolean spawnCustomParticles() {
+        return false;
+    }
+
     protected void decreaseSquish() {
         this.targetSquish *= 0.6F;
     }
@@ -160,6 +197,7 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         return this.random.nextInt(20) + 10;
     }
 
+    @Override
     public void refreshDimensions() {
         double d0 = this.getX();
         double d1 = this.getY();
@@ -168,22 +206,41 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         this.setPos(d0, d1, d2);
     }
 
+    @Override
+    public void onSyncedDataUpdated(EntityDataAccessor<?> pKey) {
+        if (SLIME_SIZE.equals(pKey)) {
+            this.refreshDimensions();
+            this.setYRot(this.yHeadRot);
+            this.yBodyRot = this.yHeadRot;
+            if (this.isInWater() && this.random.nextInt(20) == 0) {
+                this.doWaterSplashEffect();
+            }
+        }
+
+        super.onSyncedDataUpdated(pKey);
+    }
+
+    @Override
     public EntityType<? extends BaseSlimeEntity> getType() {
         return (EntityType<? extends BaseSlimeEntity>) super.getType();
     }
 
+    @Override
     public void push(Entity pEntity) {
         super.push(pEntity);
     }
 
+    @Override
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
         return 0.625F * pSize.height;
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
         return SoundEvents.SLIME_HURT;
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.SLIME_DEATH;
     }
@@ -192,10 +249,12 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         return SoundEvents.SLIME_SQUISH;
     }
 
+    @Override
     public float getSoundVolume() {
-        return 0.4F;
+        return 0.4F * (float)this.getSize();
     }
 
+    @Override
     public int getMaxHeadXRot() {
         return 0;
     }
@@ -204,9 +263,10 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
      * Returns {@code true} if the slime makes a sound when it jumps (based upon the slime's size)
      */
     public boolean doPlayJumpSound() {
-        return true;
+        return this.getSize() > 0;
     }
 
+    @Override
     protected void jumpFromGround() {
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, (double) this.getJumpPower(), vec3.z);
@@ -228,8 +288,9 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
         return SoundEvents.SLIME_JUMP;
     }
 
+    @Override
     public EntityDimensions getDimensions(Pose pPose) {
-        return super.getDimensions(pPose).scale(0.255F);
+        return super.getDimensions(pPose).scale(0.255F * (float)this.getSize());
     }
 
     public static AttributeSupplier.Builder prepareAttributes() {
@@ -243,40 +304,30 @@ public abstract class BaseSlimeEntity extends Animal implements HungerAPI {
 
     @Override
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemStack = pPlayer.getItemInHand(pHand);
-        if (itemStack.isEdible() && getHunger() < 20.0D || this.getHunger() <= 0) {
-            regenHunger(5.0F);
-            this.level.addParticle(ParticleTypes.HEART, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-            if (!pPlayer.getAbilities().invulnerable) {
-                itemStack.shrink(1);
-            }
-        }
         return super.mobInteract(pPlayer, pHand);
     }
 
     @Override
     public void aiStep() {
-        //SlimeBreeder - handle Hunger API
-        if (this.getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
-            if (!this.getLevel().isClientSide() && this.isAlive() && --this.hungerChangeTime <= 0) {
-                this.playSound(SoundEvents.TURTLE_LAY_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.spawnAtLocation(Items.SLIME_BALL);
-                this.gameEvent(GameEvent.ENTITY_PLACE);
-                this.hungerChangeTime = this.random.nextInt(3000) + 3000;
-                this.reduceHunger(3.0F);
-            }
-        }
-
-        if (this.getHunger() <= 0) {
-            this.getLevel().addParticle(ParticleTypes.ANGRY_VILLAGER, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-            this.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + "slime.nohungervalue"));
-        }
-
-        if (this.getHunger() < this.getMaxHunger() && this.getAge() % REGEN_SPEED == 0) {
-            this.regenHunger(REGEN_AMOUNT);
-            this.getLevel().addParticle(ParticleTypes.WITCH, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
-        }
+        SlimeBreederHooks.handleHunger(this);
+        SlimeBreederHooks.handleAbsorber(this);
         super.aiStep();
     }
-    //SlimeBreeder - end
+
+    @Override
+    protected void dropAllDeathLoot(DamageSource pDamageSource) {
+      SlimeBreederHooks.handleDropDeath(this);
+        super.dropAllDeathLoot(pDamageSource);
+    }
+
+    @Override
+    public ItemStack getAbsorbedItem() {
+        return this.entityData.get(DATA_ABSORBED);
+    }
+
+    @Override
+    public void setAbsorbedItem(ItemStack stack) {
+        this.entityData.set(DATA_ABSORBED, stack);
+    }
+
 }

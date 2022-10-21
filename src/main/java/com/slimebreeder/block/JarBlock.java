@@ -16,6 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Map;
 
 
+@SuppressWarnings("deprecation")
 public class JarBlock extends Block {
 
     private static final Map<Block, Block> POTTED_BY_CONTENT = Maps.newHashMap();

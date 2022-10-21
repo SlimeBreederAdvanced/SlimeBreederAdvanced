@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "slimebreeder:item/lunar_slime_ball"
+  }
+}
