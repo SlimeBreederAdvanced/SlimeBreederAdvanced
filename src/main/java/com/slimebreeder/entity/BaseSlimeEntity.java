@@ -320,7 +320,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         super.aiStep();
     }
 
-
     @Override
     protected void dropAllDeathLoot(DamageSource pDamageSource) {
       SlimeBreederHooks.handleDropDeath(this);
