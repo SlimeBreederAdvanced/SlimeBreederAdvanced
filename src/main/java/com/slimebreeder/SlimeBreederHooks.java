@@ -27,14 +27,13 @@ public class SlimeBreederHooks {
     }
 
     public static void handleHunger(BaseSlimeEntity entity) {
-        if (entity.getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
+        //if (entity.getHunger() > 0 && SlimeBreederConfig.CONFIG.enableHungerReduction.get()) {
             if (!entity.getLevel().isClientSide() && entity.isAlive() && --entity.hungerChangeTime <= 0) {
                 entity.playSound(SoundEvents.TURTLE_LAY_EGG, 1.0F, (entity.getRandom().nextFloat() - entity.getRandom().nextFloat()) * 0.2F + 1.0F);
                 SlimeBreederHooks.handleSlimeTypes(entity);
                 entity.gameEvent(GameEvent.ENTITY_PLACE);
                 entity.hungerChangeTime = entity.getRandom().nextInt(6000) + 6000;
                 // SlimeBreeder - TODO entity.reduceHunger(2.0F);
-            }
         }
 
         /**
