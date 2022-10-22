@@ -28,6 +28,16 @@ public class SBLanguageProvider extends LanguageProvider {
         add(SBItems.AQUA_SLIME_GEL.get(), "Aqua Slime Gel");
         add(SBItems.AQUA_SLIME_JAM.get(), "Auqa Slime Jam");
         add(SBItems.AQUA_SLIME_SANDWICH.get(), "Aqua Slime Sandwich");
+        add(SBItems.FLAME_SLIME_SPAWN_EGG.get(), "Flame Slime Spawn Egg");
+        add(SBItems.FLAME_SLIME_JAM.get(), "Flame Slime Jam");
+        add(SBItems.FLAME_SLIME_BALL.get(), "Flame Slime Ball");
+        add(SBItems.FLAME_SLIME_GEL.get(), "Flame Slime Gel");
+        add(SBItems.FLAME_SLIME_SANDWICH.get(), "Flame Slime Sandwich");
+        add(SBItems.JUNGLE_SLIME_JAM.get(), "Jungle Slime Jam");
+        add(SBItems.JUNGLE_SLIME_BALL.get(), "Jungle Slime Ball");
+        add(SBItems.JUNGLE_SLIME_GEL.get(), "Jungle Slime Gel");
+        add(SBItems.JUNGLE_SLIME_SANDWICH.get(), "Jungle Slime Sandwich");
+        add(SBItems.JUNGLE_SLIME_SPAWN_EGG.get(), "Jungle Slime Spawn Egg");
         add("slimebreeder.check.info", "Hunger Check Value:");
         add("slimebreeder.configgui.enableHungerReduction", "Enable slime hunger reduction");
     }

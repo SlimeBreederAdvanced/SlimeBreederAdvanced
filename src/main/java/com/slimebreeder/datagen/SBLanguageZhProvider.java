@@ -27,6 +27,16 @@ public class SBLanguageZhProvider extends LanguageProvider {
         add(SBItems.AQUA_SLIME_GEL.get(), "水生史莱姆凝胶");
         add(SBItems.AQUA_SLIME_JAM.get(), "水生史莱姆凝胶酱");
         add(SBItems.AQUA_SLIME_SANDWICH.get(), "水生史莱姆三明治");
+        add(SBItems.FLAME_SLIME_SPAWN_EGG.get(), "火焰史莱姆生成蛋");
+        add(SBItems.FLAME_SLIME_JAM.get(), "火焰史莱姆凝胶酱");
+        add(SBItems.FLAME_SLIME_BALL.get(), "火焰史莱姆黏液球");
+        add(SBItems.FLAME_SLIME_GEL.get(), "火焰史莱姆凝胶");
+        add(SBItems.FLAME_SLIME_SANDWICH.get(), "火焰史莱姆三明治");
+        add(SBItems.JUNGLE_SLIME_JAM.get(), "森林史莱姆凝胶酱");
+        add(SBItems.JUNGLE_SLIME_BALL.get(), "森林史莱姆黏液球");
+        add(SBItems.JUNGLE_SLIME_GEL.get(), "森林史莱姆凝胶");
+        add(SBItems.JUNGLE_SLIME_SANDWICH.get(), "森林史莱姆三明治");
+        add(SBItems.JUNGLE_SLIME_SPAWN_EGG.get(), "森林史莱姆生成蛋");
         add("slimebreeder.check.info", "饥饿值检测信息:");
         add("slimebreeder.configgui.enableHungerReduction", "启用史莱姆饥饿值锐减");
     }

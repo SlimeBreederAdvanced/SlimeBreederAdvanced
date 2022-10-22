@@ -1,7 +1,7 @@
 package com.slimebreeder;
 
 import com.slimebreeder.api.SlimeType;
-import com.slimebreeder.entity.BaseSlimeEntity;
+import com.slimebreeder.entity.slime.BaseSlimeEntity;
 import com.slimebreeder.item.SBItems;
 import com.slimebreeder.util.SlimeBreederConfig;
 import net.minecraft.sounds.SoundEvents;
@@ -49,13 +49,13 @@ public class SlimeBreederHooks {
     }
 
     protected static void handleSlimeTypes(BaseSlimeEntity entity) {
-        if (entity.getSlimeType() == SlimeType.LUNAR_SLIME) {
-            entity.spawnAtLocation(SBItems.LUNAR_SLIME_BALL.get());
-        }
-        if (entity.getSlimeType() == SlimeType.AQUA_SLIME) {
-            entity.spawnAtLocation(SBItems.AQUA_SLIME_BALL.get());
-        }else {
-            entity.spawnAtLocation(Items.SLIME_BALL);
+        SlimeType type = entity.getSlimeType();
+        switch (type) {
+            case LUNAR_SLIME -> entity.spawnAtLocation(SBItems.LUNAR_SLIME_BALL.get());
+            case AQUA_SLIME -> entity.spawnAtLocation(SBItems.AQUA_SLIME_BALL.get());
+            case FLAME_SLIME -> entity.spawnAtLocation(SBItems.FLAME_SLIME_BALL.get());
+            case JUNGLE_SLIME -> entity.spawnAtLocation(SBItems.JUNGLE_SLIME_BALL.get());
+            default -> entity.spawnAtLocation(Items.SLIME_BALL);
         }
     }
 

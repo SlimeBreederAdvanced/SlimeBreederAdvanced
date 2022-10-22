@@ -1,4 +1,4 @@
-package com.slimebreeder.entity;
+package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
