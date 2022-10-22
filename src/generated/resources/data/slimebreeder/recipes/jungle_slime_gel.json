@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.35,
+  "ingredient": {
+    "item": "slimebreeder:jungle_slime_ball"
+  },
+  "result": "slimebreeder:jungle_slime_gel"
+}

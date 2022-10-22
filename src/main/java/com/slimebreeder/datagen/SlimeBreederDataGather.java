@@ -23,5 +23,8 @@ public class SlimeBreederDataGather {
         event.getGenerator().addProvider(
                 event.includeClient(),
                 new SBLootTableProvider(event.getGenerator(), SlimeBreeder.MODID));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new SBRecipeProvider(event.getGenerator()));
     }
 }
