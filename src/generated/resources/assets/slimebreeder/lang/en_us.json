@@ -1,0 +1,18 @@
+{
+  "block.slimebreeder.cow_jar": "Cow Jar",
+  "block.slimebreeder.jar": "Jar",
+  "item.slimebreeder.aqua_slime_ball": "Aqua Slime Ball",
+  "item.slimebreeder.aqua_slime_gel": "Aqua Slime Gel",
+  "item.slimebreeder.aqua_slime_jam": "Auqa Slime Jam",
+  "item.slimebreeder.aqua_slime_sandwich": "Aqua Slime Sandwich",
+  "item.slimebreeder.hunger_check_stick": "Hunger Check Stick",
+  "item.slimebreeder.lunar_slime_ball": "Lunar Slime Ball",
+  "item.slimebreeder.lunar_slime_gel": "Lunar Slime Gel",
+  "item.slimebreeder.lunar_slime_jam": "Lunar Slime Jam",
+  "item.slimebreeder.lunar_slime_sandwich": "Lunar Slime Sandwich",
+  "item.slimebreeder.spawn_egg.aqua_slime": "Aqua Slime Spawn Egg",
+  "item.slimebreeder.spawn_egg.lunar_slime": "Lunar Slime Spawn Egg",
+  "itemGroup.slimebreedertab": "SlimeBreeder Tab",
+  "slimebreeder.check.info": "Hunger Check Value:",
+  "slimebreeder.configgui.enableHungerReduction": "Enable slime hunger reduction"
+}

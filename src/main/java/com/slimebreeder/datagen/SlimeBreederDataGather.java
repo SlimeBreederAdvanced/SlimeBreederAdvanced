@@ -13,5 +13,11 @@ public class SlimeBreederDataGather {
         event.getGenerator().addProvider(
                 event.includeClient(),
                 new SBItemModelProvider(event.getGenerator(), event.getExistingFileHelper(), SBItems.ITEMS));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new SBLanguageProvider(event.getGenerator(), "en_us"));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new SBLanguageZhProvider(event.getGenerator(), "zh_cn"));
     }
 }

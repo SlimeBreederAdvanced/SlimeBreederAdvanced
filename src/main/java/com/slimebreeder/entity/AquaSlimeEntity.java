@@ -109,7 +109,7 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
             this.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
         }
         if (!this.isInWater()) {
-            this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE));
         }
     }
 

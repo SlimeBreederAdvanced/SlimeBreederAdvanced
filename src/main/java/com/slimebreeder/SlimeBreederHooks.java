@@ -50,6 +50,9 @@ public class SlimeBreederHooks {
     protected static void handleSlimeTypes(BaseSlimeEntity entity) {
         if (entity.getSlimeType() == SlimeType.LUNAR_SLIME) {
             entity.spawnAtLocation(SBItems.LUNAR_SLIME_BALL.get());
+        }
+        if (entity.getSlimeType() == SlimeType.AQUA_SLIME) {
+            entity.spawnAtLocation(SBItems.AQUA_SLIME_BALL.get());
         }else {
             entity.spawnAtLocation(Items.SLIME_BALL);
         }

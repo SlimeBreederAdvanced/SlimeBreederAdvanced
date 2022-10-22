@@ -21,8 +21,8 @@ public class SlimeBreeder {
     public SlimeBreeder() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         SBEntityTypes.ENTITIES.register(modEventBus);
-        SBItems.ITEMS.register(modEventBus);
         SBBlocks.BLOCKS.register(modEventBus);
+        SBItems.ITEMS.register(modEventBus);
         SlimeBreederEventSubscriber.init();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SlimeBreederConfig.configSpec);

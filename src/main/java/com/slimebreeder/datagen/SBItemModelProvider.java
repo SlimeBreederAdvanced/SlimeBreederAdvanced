@@ -98,7 +98,7 @@ public class SBItemModelProvider extends ItemModelProvider {
 
     protected void setSkipItems() {
         skipItems(
-                SBItems.AQUA_SLIME_EGG.get(), SBItems.LUNAR_SLIME_EGG.get(),
+                SBItems.AQUA_SLIME_SPAWN_EGG.get(), SBItems.LUNAR_SLIME_SPAWN_EGG.get(),
                 SBItems.HUNGER_CHECK_STICK.get()
         );
     }

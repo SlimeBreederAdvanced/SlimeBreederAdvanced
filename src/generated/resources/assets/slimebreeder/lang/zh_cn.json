@@ -1,0 +1,18 @@
+{
+  "block.slimebreeder.cow_jar": "奶牛罐子",
+  "block.slimebreeder.jar": "罐子",
+  "item.slimebreeder.aqua_slime_ball": "水生史莱姆黏液球",
+  "item.slimebreeder.aqua_slime_gel": "水生史莱姆凝胶",
+  "item.slimebreeder.aqua_slime_jam": "水生史莱姆凝胶酱",
+  "item.slimebreeder.aqua_slime_sandwich": "水生史莱姆三明治",
+  "item.slimebreeder.hunger_check_stick": "饥饿值检测棒",
+  "item.slimebreeder.lunar_slime_ball": "月光史莱姆黏液球",
+  "item.slimebreeder.lunar_slime_gel": "月光史莱姆凝胶",
+  "item.slimebreeder.lunar_slime_jam": "月光史莱姆凝胶酱",
+  "item.slimebreeder.lunar_slime_sandwich": "月光史莱姆三明治",
+  "item.slimebreeder.spawn_egg.aqua_slime": "水生史莱姆生成蛋",
+  "item.slimebreeder.spawn_egg.lunar_slime": "月光史莱姆生成蛋",
+  "itemGroup.slimebreedertab": "史莱姆饲养主模组",
+  "slimebreeder.check.info": "饥饿值检测信息:",
+  "slimebreeder.configgui.enableHungerReduction": "启用史莱姆饥饿值锐减"
+}
