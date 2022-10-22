@@ -29,7 +29,6 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("unchecked")
 public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI, SlimeTypeAPI, AbsorberAPI {
 
     public float targetSquish;
@@ -221,6 +220,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public EntityType<? extends BaseSlimeEntity> getType() {
         return (EntityType<? extends BaseSlimeEntity>) super.getType();
     }
