@@ -2,6 +2,8 @@ package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
+import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
+import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
@@ -43,7 +45,9 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new AquaSlimeSwimGoal(this));
+        this.goalSelector.addGoal(1, new CustomSlimeFloatGoal(this));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
+        this.goalSelector.addGoal(3, new CustomSlimeRandomDirectionGoal(this));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
@@ -117,6 +121,8 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
         }
         if (!this.isInWater()) {
             this.addEffect(new MobEffectInstance(MobEffects.WITHER, 4 * 2, 1));
+            this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 4 * 2, 1));
+            this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 4 * 2, 1));
         }
     }
 
