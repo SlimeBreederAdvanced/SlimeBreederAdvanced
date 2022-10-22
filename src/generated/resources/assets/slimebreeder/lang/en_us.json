@@ -1,6 +1,10 @@
 {
+  "block.slimebreeder.aqua_slime_block": "Aqua Slime Block",
   "block.slimebreeder.cow_jar": "Cow Jar",
+  "block.slimebreeder.flame_slime_block": "Flame Slime Block",
   "block.slimebreeder.jar": "Jar",
+  "block.slimebreeder.jungle_slime_block": "Jungle Slime Block",
+  "block.slimebreeder.lunar_slime_block": "Lunar Slime Block",
   "item.slimebreeder.aqua_slime_ball": "Aqua Slime Ball",
   "item.slimebreeder.aqua_slime_gel": "Aqua Slime Gel",
   "item.slimebreeder.aqua_slime_jam": "Auqa Slime Jam",

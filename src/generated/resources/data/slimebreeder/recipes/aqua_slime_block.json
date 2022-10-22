@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "slimebreeder:aqua_slime_gel"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 6,
+    "item": "slimebreeder:aqua_slime_block"
+  }
+}

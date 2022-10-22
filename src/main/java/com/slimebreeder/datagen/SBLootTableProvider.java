@@ -34,7 +34,7 @@ public class SBLootTableProvider extends LootTableProvider {
     }
 
     protected BlockLoot getBlockLootTable() {
-        return new SBBlockLoot(modid);
+        return new SBBlockBaseLoot(modid);
     }
 
     @Override

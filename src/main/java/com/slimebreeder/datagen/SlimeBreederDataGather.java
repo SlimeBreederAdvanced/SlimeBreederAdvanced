@@ -1,6 +1,7 @@
 package com.slimebreeder.datagen;
 
 import com.slimebreeder.SlimeBreeder;
+import com.slimebreeder.block.SBBlocks;
 import com.slimebreeder.item.SBItems;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,9 +14,6 @@ public class SlimeBreederDataGather {
     public static void gatherData(GatherDataEvent event) {
         event.getGenerator().addProvider(
                 event.includeClient(),
-                new SBItemModelProvider(event.getGenerator(), event.getExistingFileHelper(), SBItems.ITEMS));
-        event.getGenerator().addProvider(
-                event.includeClient(),
                 new SBLanguageProvider(event.getGenerator(), "en_us"));
         event.getGenerator().addProvider(
                 event.includeClient(),
@@ -26,5 +24,11 @@ public class SlimeBreederDataGather {
         event.getGenerator().addProvider(
                 event.includeClient(),
                 new SBRecipeProvider(event.getGenerator()));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new SBBlockStateProvider(event.getGenerator(), event.getExistingFileHelper(), SBBlocks.BLOCKS));
+        event.getGenerator().addProvider(
+                event.includeClient(),
+                new SBItemModelProvider(event.getGenerator(), event.getExistingFileHelper(), SBItems.ITEMS));
     }
 }

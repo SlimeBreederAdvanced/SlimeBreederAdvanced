@@ -1,6 +1,10 @@
 {
+  "block.slimebreeder.aqua_slime_block": "水生史莱姆粘液块",
   "block.slimebreeder.cow_jar": "奶牛罐子",
+  "block.slimebreeder.flame_slime_block": "火焰史莱姆粘液块",
   "block.slimebreeder.jar": "罐子",
+  "block.slimebreeder.jungle_slime_block": "森林史莱姆粘液块",
+  "block.slimebreeder.lunar_slime_block": "月光史莱姆粘液块",
   "item.slimebreeder.aqua_slime_ball": "水生史莱姆黏液球",
   "item.slimebreeder.aqua_slime_gel": "水生史莱姆凝胶",
   "item.slimebreeder.aqua_slime_jam": "水生史莱姆凝胶酱",

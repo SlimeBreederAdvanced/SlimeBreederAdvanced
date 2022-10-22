@@ -4,9 +4,10 @@ import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.SlimeBreederTab;
 import com.slimebreeder.item.SBItems;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,19 +21,15 @@ public class SBBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SlimeBreeder.MODID);
 
-    public static final RegistryObject<Block> JAR_BLOCK = register("jar", JarBlock::new, SlimeBreederTab.TAB);
-    public static final RegistryObject<Block> COW_JAR_BLOCK = register("cow_jar", CowJarBlock::new, SlimeBreederTab.TAB);
+    public static final RegistryObject<Block> JAR_BLOCK = register("jar", JarBlock::new);
+    public static final RegistryObject<Block> COW_JAR_BLOCK = register("cow_jar", CowJarBlock::new);
+    public static final RegistryObject<Block> AQUA_SLIME_BLOCK = register("aqua_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> FLAME_SLIME_BLOCK = register("flame_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> LUNAR_SLIME_BLOCK = register("lunar_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> JUNGLE_SLIME_BLOCK = register("jungle_slime_block", SBBlocks::ofSlimeBlock);
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier) {
-        return register(name, blockSupplier, (Function<T, ? extends BlockItem>) null);
-    }
-
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, CreativeModeTab group) {
-        return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties().tab(group)));
-    }
-
-    private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, Item.Properties blockItemProperties) {
-        return register(name, blockSupplier, block -> new BlockItem(block, blockItemProperties));
+        return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties().tab(SlimeBreederTab.TAB)));
     }
 
     public static <T extends Block> RegistryObject<T> registerBlock(DeferredRegister<Block> blocks, DeferredRegister<Item> items, String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory) {
@@ -47,5 +44,9 @@ public class SBBlocks {
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier, @Nullable Function<T, ? extends BlockItem> blockItemFactory) {
         return registerBlock(SBBlocks.BLOCKS, SBItems.ITEMS, name, blockSupplier, blockItemFactory);
+    }
+
+    protected static Block ofSlimeBlock() {
+        return new Block(BlockBehaviour.Properties.copy(Blocks.SLIME_BLOCK));
     }
 }

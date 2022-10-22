@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "slimebreeder:jungle_slime_gel"
+    }
+  },
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "result": {
+    "count": 6,
+    "item": "slimebreeder:jungle_slime_block"
+  }
+}

@@ -16,6 +16,10 @@ public class SBLanguageZhProvider extends LanguageProvider {
         add("itemGroup.slimebreedertab", "史莱姆饲养主模组");
         add(SBBlocks.JAR_BLOCK.get(), "罐子");
         add(SBBlocks.COW_JAR_BLOCK.get(), "奶牛罐子");
+        add(SBBlocks.AQUA_SLIME_BLOCK.get(), "水生史莱姆粘液块");
+        add(SBBlocks.FLAME_SLIME_BLOCK.get(), "火焰史莱姆粘液块");
+        add(SBBlocks.LUNAR_SLIME_BLOCK.get(), "月光史莱姆粘液块");
+        add(SBBlocks.JUNGLE_SLIME_BLOCK.get(), "森林史莱姆粘液块");
         add(SBItems.AQUA_SLIME_SPAWN_EGG.get(), "水生史莱姆生成蛋");
         add(SBItems.LUNAR_SLIME_SPAWN_EGG.get(), "月光史莱姆生成蛋");
         add(SBItems.LUNAR_SLIME_BALL.get(), "月光史莱姆黏液球");

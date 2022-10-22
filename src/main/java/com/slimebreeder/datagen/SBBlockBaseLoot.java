@@ -12,12 +12,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
-public class SBBlockLoot extends BlockLoot {
+public class SBBlockBaseLoot extends BlockLoot {
 
     private final String modID;
     private final Set<Block> skipBlocks = new HashSet<>();
 
-    public SBBlockLoot(String modid) {
+    public SBBlockBaseLoot(String modid) {
         this.modID = modid;
         setSkipBlocks();
     }

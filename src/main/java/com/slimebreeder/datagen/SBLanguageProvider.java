@@ -17,6 +17,10 @@ public class SBLanguageProvider extends LanguageProvider {
         add("itemGroup.slimebreedertab", "SlimeBreeder Tab");
         add(SBBlocks.JAR_BLOCK.get(), "Jar");
         add(SBBlocks.COW_JAR_BLOCK.get(), "Cow Jar");
+        add(SBBlocks.AQUA_SLIME_BLOCK.get(), "Aqua Slime Block");
+        add(SBBlocks.FLAME_SLIME_BLOCK.get(), "Flame Slime Block");
+        add(SBBlocks.LUNAR_SLIME_BLOCK.get(), "Lunar Slime Block");
+        add(SBBlocks.JUNGLE_SLIME_BLOCK.get(), "Jungle Slime Block");
         add(SBItems.AQUA_SLIME_SPAWN_EGG.get(), "Aqua Slime Spawn Egg");
         add(SBItems.LUNAR_SLIME_SPAWN_EGG.get(), "Lunar Slime Spawn Egg");
         add(SBItems.LUNAR_SLIME_BALL.get(), "Lunar Slime Ball");
