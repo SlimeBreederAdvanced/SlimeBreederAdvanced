@@ -32,7 +32,7 @@ public class SBRecipeProvider extends RecipeProvider {
         recipeSlimeJam(SBItems.FLAME_SLIME_GEL.get(), SBItems.FLAME_SLIME_JAM.get(), pFinishedRecipeConsumer);
 
         ShapedRecipeBuilder.shaped(
-                SBBlocks.JAR_BLOCK.get()).
+                SBBlocks.JAR_BLOCK.get(), 4).
                 pattern("XXX").
                 pattern("X X").
                 pattern("XXX").
