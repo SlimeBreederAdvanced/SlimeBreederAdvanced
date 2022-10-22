@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.Pair;
 public class SlimeBreederConfig {
 
     public final ForgeConfigSpec.BooleanValue enableHungerReduction;
+    public final ForgeConfigSpec.BooleanValue enableSlimeAbsorbing;
 
     static final ForgeConfigSpec configSpec;
     public static final SlimeBreederConfig CONFIG;
@@ -24,5 +25,9 @@ public class SlimeBreederConfig {
                 .comment("Set this to true to enbale Custom slime's hunger reduction.")
                 .translation(SlimeBreeder.MODID + ".configgui.enableHungerReduction")
                 .define("enableHungerReduction", true);
+
+        enableSlimeAbsorbing = builder
+                .comment("Set this to true to enable Slime Absorbing items")
+                .define("enableSlimeAbsorbing", false);
     }
 }

@@ -56,20 +56,22 @@ public class SlimeBreederHooks {
     }
 
     public static void handleAbsorber(BaseSlimeEntity entity) {
-        if (!entity.getAbsorbedItem().isEmpty()) {
-            return;
-        }
+        if (SlimeBreederConfig.CONFIG.enableSlimeAbsorbing.get()) {
+            if (!entity.getAbsorbedItem().isEmpty()) {
+                return;
+            }
 
-        AABB boundingBox = entity.getBoundingBox();
-        List<ItemEntity> entities = entity.level.getEntities(EntityType.ITEM, boundingBox, item -> item.isAlive() && !item.isPickable() && !item.getItem()
-                .isEmpty());
-        entities.stream().findFirst().ifPresent(item -> {
-            ItemStack itemStack = item.getItem();
-            ItemStack absorbedStack = itemStack.split(1);
+            AABB boundingBox = entity.getBoundingBox();
+            List<ItemEntity> entities = entity.level.getEntities(EntityType.ITEM, boundingBox, item -> item.isAlive() && !item.isPickable() && !item.getItem()
+                    .isEmpty());
+            entities.stream().findFirst().ifPresent(item -> {
+                ItemStack itemStack = item.getItem();
+                ItemStack absorbedStack = itemStack.split(1);
                 entity.setAbsorbedItem(absorbedStack);
                 if (itemStack.isEmpty()) {
                     item.discard();
                 }
-        });
+            });
+        }
     }
 }
