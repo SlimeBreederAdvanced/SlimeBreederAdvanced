@@ -45,6 +45,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     public BaseSlimeEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new CustomSlimeMoveControl(this);
+        this.setSize(2, false);
     }
 
     @Override
@@ -80,7 +81,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         pCompound.putFloat("MaxHunger", this.getMaxHunger());
         pCompound.putFloat("Hunger", this.getHunger());
         pCompound.putInt("HungerChangeTime", this.hungerChangeTime);
-        pCompound.putInt("Size", this.getSize() - 1);
+        pCompound.putInt("Size", this.getSize());
         pCompound.put("slimebreeder:absorbed_item", getAbsorbedItem().save(new CompoundTag()));
     }
 
@@ -95,7 +96,9 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         if (pCompound.contains("HungerChangeTime")) {
             this.hungerChangeTime = pCompound.getInt("HungerChangeTime");
         }
-        this.setSize(pCompound.getInt("Size") + 1, false);
+        if (pCompound.contains("Size")) {
+            this.setSize(2, false);
+        }
         this.setAbsorbedItem(ItemStack.of(pCompound.getCompound("slimebreeder:absorbed_item")));
     }
 
