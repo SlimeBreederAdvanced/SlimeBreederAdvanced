@@ -2,6 +2,7 @@ package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
 
 public class AquaSlimeEntity extends BaseSlimeEntity {
 
@@ -134,4 +136,10 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
     public SlimeType setSlimeType() {
         return SlimeType.AQUA_SLIME;
     }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
 }

@@ -4,11 +4,13 @@ import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.goal.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 
 public class JungleSlimeEntity extends BaseSlimeEntity {
 
@@ -37,4 +39,10 @@ public class JungleSlimeEntity extends BaseSlimeEntity {
     public SlimeType setSlimeType() {
         return SlimeType.JUNGLE_SLIME;
     }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
 }

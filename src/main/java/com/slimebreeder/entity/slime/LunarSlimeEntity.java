@@ -5,6 +5,7 @@ import com.slimebreeder.entity.SBEntityTypes;
 import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.goal.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 public class LunarSlimeEntity extends BaseSlimeEntity {
@@ -79,4 +81,10 @@ public class LunarSlimeEntity extends BaseSlimeEntity {
     public SlimeType setSlimeType() {
         return SlimeType.LUNAR_SLIME;
     }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
 }
