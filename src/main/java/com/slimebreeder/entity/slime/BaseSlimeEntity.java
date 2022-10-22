@@ -1,4 +1,4 @@
-package com.slimebreeder.entity;
+package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.SlimeBreederHooks;
 import com.slimebreeder.api.AbsorberAPI;
@@ -138,8 +138,8 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(SLIME_SIZE, 1);
-        this.entityData.define(MAX_HUNGER, 0.0F);
-        this.entityData.define(HUNGER, 0.0F);
+        this.entityData.define(MAX_HUNGER, 20.0F);
+        this.entityData.define(HUNGER, 10.0F);
         this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
 

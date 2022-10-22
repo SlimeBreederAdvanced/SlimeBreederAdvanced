@@ -2,7 +2,7 @@ package com.slimebreeder.item;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.SlimeBreederTab;
-import com.slimebreeder.entity.BaseSlimeEntity;
+import com.slimebreeder.entity.slime.BaseSlimeEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

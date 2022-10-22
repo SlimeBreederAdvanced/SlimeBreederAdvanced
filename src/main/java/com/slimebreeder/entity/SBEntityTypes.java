@@ -1,6 +1,10 @@
 package com.slimebreeder.entity;
 
 import com.slimebreeder.SlimeBreeder;
+import com.slimebreeder.entity.slime.AquaSlimeEntity;
+import com.slimebreeder.entity.slime.FlameSlimeEntity;
+import com.slimebreeder.entity.slime.JungleSlimeEntity;
+import com.slimebreeder.entity.slime.LunarSlimeEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -21,6 +25,16 @@ public class SBEntityTypes {
 
     public static RegistryObject<EntityType<AquaSlimeEntity>> AQUA_SLIME_ENEITY = register("aqua_slime",
             EntityType.Builder.of(AquaSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<JungleSlimeEntity>> JUNGLE_SLIME_ENEITY = register("jungle_slime",
+            EntityType.Builder.of(JungleSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<FlameSlimeEntity>> FLAME_SLIME_ENEITY = register("flame_slime",
+            EntityType.Builder.of(FlameSlimeEntity::new, MobCategory.CREATURE)
                     .sized(2.04F, 2.04F)
                     .clientTrackingRange(10));
 

@@ -1,6 +1,6 @@
 package com.slimebreeder.entity.control;
 
-import com.slimebreeder.entity.BaseSlimeEntity;
+import com.slimebreeder.entity.slime.BaseSlimeEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 

@@ -1,6 +1,6 @@
 package com.slimebreeder.entity.goal;
 
-import com.slimebreeder.entity.AquaSlimeEntity;
+import com.slimebreeder.entity.slime.AquaSlimeEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.goal.Goal;
 
