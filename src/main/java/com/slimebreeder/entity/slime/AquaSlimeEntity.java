@@ -2,11 +2,14 @@ package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.player.Player;
@@ -142,4 +145,13 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    @Override
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+
+    @Override
+    protected ParticleOptions getParticleType() {
+        return ParticleTypes.DRIPPING_WATER;
+    }
 }

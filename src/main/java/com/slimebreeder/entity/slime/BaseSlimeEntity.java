@@ -8,6 +8,7 @@ import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
@@ -44,7 +46,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     public BaseSlimeEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.moveControl = new CustomSlimeMoveControl(this);
-        this.setSize(2, false);
     }
 
     @Override
@@ -80,7 +81,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         pCompound.putFloat("MaxHunger", this.getMaxHunger());
         pCompound.putFloat("Hunger", this.getHunger());
         pCompound.putInt("HungerChangeTime", this.hungerChangeTime);
-        pCompound.putInt("Size", this.getSize());
+        pCompound.putInt("Size", this.getSize() - 1);
         pCompound.put("slimebreeder:absorbed_item", getAbsorbedItem().save(new CompoundTag()));
     }
 
@@ -95,9 +96,7 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         if (pCompound.contains("HungerChangeTime")) {
             this.hungerChangeTime = pCompound.getInt("HungerChangeTime");
         }
-        if (pCompound.contains("Size")) {
-            this.setSize(2, false);
-        }
+        this.setSize(pCompound.getInt("Size") + 1, false);
         this.setAbsorbedItem(ItemStack.of(pCompound.getCompound("slimebreeder:absorbed_item")));
     }
 
@@ -136,9 +135,9 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(SLIME_SIZE, 1);
+        this.entityData.define(SLIME_SIZE, 2);
         this.entityData.define(MAX_HUNGER, 20.0F);
-        this.entityData.define(HUNGER, 10.0F);
+        this.entityData.define(HUNGER, 20.0F);
         this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
 
@@ -328,6 +327,11 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
     @Override
     public void setAbsorbedItem(ItemStack stack) {
         this.entityData.set(DATA_ABSORBED, stack);
+    }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
 }

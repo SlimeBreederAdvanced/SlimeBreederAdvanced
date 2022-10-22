@@ -4,7 +4,12 @@ import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.goal.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.*;
@@ -45,4 +50,28 @@ public class FlameSlimeEntity extends BaseSlimeEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    @Override
+    protected ParticleOptions getParticleType() {
+        return ParticleTypes.FLAME;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return SoundEvents.MAGMA_CUBE_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.MAGMA_CUBE_DEATH;
+    }
+
+    @Override
+    protected SoundEvent getSquishSound() {
+        return SoundEvents.MAGMA_CUBE_SQUISH;
+    }
+
+    @Override
+    public SoundEvent getJumpSound() {
+        return SoundEvents.MAGMA_CUBE_JUMP;
+    }
 }

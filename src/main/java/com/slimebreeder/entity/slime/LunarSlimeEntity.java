@@ -5,6 +5,8 @@ import com.slimebreeder.entity.SBEntityTypes;
 import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
 import com.slimebreeder.entity.goal.CustomSlimeKeepOnJumpingGoal;
 import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
@@ -87,4 +89,8 @@ public class LunarSlimeEntity extends BaseSlimeEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    @Override
+    protected ParticleOptions getParticleType() {
+        return ParticleTypes.GLOW;
+    }
 }
