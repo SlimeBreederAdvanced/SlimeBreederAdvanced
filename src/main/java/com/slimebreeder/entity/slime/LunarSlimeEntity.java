@@ -1,9 +1,10 @@
-package com.slimebreeder.entity;
+package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
-import com.slimebreeder.entity.control.CustomSlimeFloatGoal;
-import com.slimebreeder.entity.control.CustomSlimeKeepOnJumpingGoal;
-import com.slimebreeder.entity.control.CustomSlimeRandomDirectionGoal;
+import com.slimebreeder.entity.SBEntityTypes;
+import com.slimebreeder.entity.goal.CustomSlimeFloatGoal;
+import com.slimebreeder.entity.goal.CustomSlimeKeepOnJumpingGoal;
+import com.slimebreeder.entity.goal.CustomSlimeRandomDirectionGoal;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;

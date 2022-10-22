@@ -1,6 +1,6 @@
 modLoader="javafml"
 loaderVersion="[43,)"
-license="GPLv3.0"
+license="GPLv2.1"
 [[mods]]
 modId="slimebreeder"
 version="${file.jarVersion}"

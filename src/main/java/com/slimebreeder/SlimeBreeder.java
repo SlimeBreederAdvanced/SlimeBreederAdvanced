@@ -5,10 +5,10 @@ import com.slimebreeder.block.SBBlocks;
 import com.slimebreeder.event.SlimeBreederEventSubscriber;
 import com.slimebreeder.entity.SBEntityTypes;
 import com.slimebreeder.item.SBItems;
+import com.slimebreeder.util.Configuration;
+import com.slimebreeder.util.SlimeBreederConfig;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
@@ -21,12 +21,11 @@ public class SlimeBreeder {
     public SlimeBreeder() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         SBEntityTypes.ENTITIES.register(modEventBus);
-        SBItems.ITEMS.register(modEventBus);
         SBBlocks.BLOCKS.register(modEventBus);
+        SBItems.ITEMS.register(modEventBus);
         SlimeBreederEventSubscriber.init();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SlimeBreederConfig.configSpec);
-        modEventBus.register(SlimeBreederConfig.class);
+        new Configuration(SlimeBreederConfig.class, MODID);
     }
 
 }

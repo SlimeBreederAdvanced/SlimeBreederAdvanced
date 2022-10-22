@@ -1,6 +1,7 @@
-package com.slimebreeder.entity.control;
+package com.slimebreeder.entity.goal;
 
-import com.slimebreeder.entity.BaseSlimeEntity;
+import com.slimebreeder.entity.control.CustomSlimeMoveControl;
+import com.slimebreeder.entity.slime.BaseSlimeEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;

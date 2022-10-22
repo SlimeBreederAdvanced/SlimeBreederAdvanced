@@ -1,4 +1,4 @@
-package com.slimebreeder.entity;
+package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.goal.AquaSlimeSwimGoal;
@@ -38,7 +38,9 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new TryFindWaterGoal(this));
         this.goalSelector.addGoal(0, new AquaSlimeSwimGoal(this));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.0D));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.1D));
         this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 6.0F));
         this.goalSelector.addGoal(8, new FollowBoatGoal(this));
     }
@@ -109,7 +111,7 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
             this.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING));
         }
         if (!this.isInWater()) {
-            this.addEffect(new MobEffectInstance(MobEffects.WEAKNESS));
+            this.addEffect(new MobEffectInstance(MobEffects.WITHER, 4 * 2, 1));
         }
     }
 
