@@ -3,6 +3,7 @@ package com.slimebreeder;
 import com.slimebreeder.api.SlimeType;
 import com.slimebreeder.entity.BaseSlimeEntity;
 import com.slimebreeder.item.SBItems;
+import com.slimebreeder.util.SlimeBreederConfig;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -59,7 +60,7 @@ public class SlimeBreederHooks {
     }
 
     public static void handleAbsorber(BaseSlimeEntity entity) {
-        if (SlimeBreederConfig.CONFIG.enableSlimeAbsorbing.get()) {
+        if (SlimeBreederConfig.enableSlimeAbsorbing) {
             if (!entity.getAbsorbedItem().isEmpty()) {
                 return;
             }
