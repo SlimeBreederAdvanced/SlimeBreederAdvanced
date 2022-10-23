@@ -1,10 +1,7 @@
 package com.slimebreeder.entity;
 
 import com.slimebreeder.SlimeBreeder;
-import com.slimebreeder.entity.slime.AquaSlimeEntity;
-import com.slimebreeder.entity.slime.FlameSlimeEntity;
-import com.slimebreeder.entity.slime.JungleSlimeEntity;
-import com.slimebreeder.entity.slime.LunarSlimeEntity;
+import com.slimebreeder.entity.slime.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -35,6 +32,21 @@ public class SBEntityTypes {
 
     public static RegistryObject<EntityType<FlameSlimeEntity>> FLAME_SLIME_ENEITY = register("flame_slime",
             EntityType.Builder.of(FlameSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<BlackSlimeEntity>> BLACK_SLIME_ENEITY = register("black_slime",
+            EntityType.Builder.of(BlackSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<PurpleSlimeEntity>> PURPLE_SLIME_ENEITY = register("purple_slime",
+            EntityType.Builder.of(PurpleSlimeEntity::new, MobCategory.CREATURE)
+                    .sized(2.04F, 2.04F)
+                    .clientTrackingRange(10));
+
+    public static RegistryObject<EntityType<CorruptSlimeEntity>> CORRUPT_SLIME_ENEITY = register("corrupt_slime",
+            EntityType.Builder.of(CorruptSlimeEntity::new, MobCategory.CREATURE)
                     .sized(2.04F, 2.04F)
                     .clientTrackingRange(10));
 

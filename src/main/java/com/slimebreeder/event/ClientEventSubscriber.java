@@ -2,14 +2,8 @@ package com.slimebreeder.event;
 
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.block.SBBlocks;
-import com.slimebreeder.entity.renderer.FlameSlimeRenderer;
-import com.slimebreeder.entity.renderer.JungleSlimeRenderer;
-import com.slimebreeder.entity.slime.AquaSlimeEntity;
-import com.slimebreeder.entity.slime.FlameSlimeEntity;
-import com.slimebreeder.entity.slime.JungleSlimeEntity;
-import com.slimebreeder.entity.slime.LunarSlimeEntity;
-import com.slimebreeder.entity.renderer.AquaSlimeRenderer;
-import com.slimebreeder.entity.renderer.LunarSlimeRenderer;
+import com.slimebreeder.entity.renderer.*;
+import com.slimebreeder.entity.slime.*;
 import com.slimebreeder.entity.SBEntityTypes;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -29,6 +23,9 @@ public class ClientEventSubscriber {
         event.put(SBEntityTypes.AQUA_SLIME_ENEITY.get(), AquaSlimeEntity.prepareAttributes().build());
         event.put(SBEntityTypes.JUNGLE_SLIME_ENEITY.get(), JungleSlimeEntity.prepareAttributes().build());
         event.put(SBEntityTypes.FLAME_SLIME_ENEITY.get(), FlameSlimeEntity.prepareAttributes().build());
+        event.put(SBEntityTypes.BLACK_SLIME_ENEITY.get(), BlackSlimeEntity.prepareAttributes().build());
+        event.put(SBEntityTypes.PURPLE_SLIME_ENEITY.get(), BlackSlimeEntity.prepareAttributes().build());
+        event.put(SBEntityTypes.CORRUPT_SLIME_ENEITY.get(), CorruptSlimeEntity.prepareAttributes().build());
     }
 
     @SubscribeEvent
@@ -37,6 +34,9 @@ public class ClientEventSubscriber {
         event.registerEntityRenderer(SBEntityTypes.AQUA_SLIME_ENEITY.get(), AquaSlimeRenderer::new);
         event.registerEntityRenderer(SBEntityTypes.JUNGLE_SLIME_ENEITY.get(), JungleSlimeRenderer::new);
         event.registerEntityRenderer(SBEntityTypes.FLAME_SLIME_ENEITY.get(), FlameSlimeRenderer::new);
+        event.registerEntityRenderer(SBEntityTypes.BLACK_SLIME_ENEITY.get(), BlackSlimeRenderer::new);
+        event.registerEntityRenderer(SBEntityTypes.PURPLE_SLIME_ENEITY.get(), PurpleSlimeRenderer::new);
+        event.registerEntityRenderer(SBEntityTypes.CORRUPT_SLIME_ENEITY.get(), CorruptSlimeRenderer::new);
     }
 
     @SubscribeEvent

@@ -23,6 +23,9 @@ public class SBItems {
     public static final RegistryObject<Item> AQUA_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.AQUA_SLIME_ENEITY, 56063, 44543);
     public static final RegistryObject<Item> JUNGLE_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.JUNGLE_SLIME_ENEITY, 3232308, 9945732);
     public static final RegistryObject<Item> FLAME_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.FLAME_SLIME_ENEITY, 0xff0000, 0x00ff00);
+    public static final RegistryObject<Item> BALCK_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.BLACK_SLIME_ENEITY, 1447446, 0);
+    public static final RegistryObject<Item> PURPLE_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.PURPLE_SLIME_ENEITY, 9725844, 5060690);
+    public static final RegistryObject<Item> CORRUPT_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.CORRUPT_SLIME_ENEITY, 9725844, 5060690);
     public static final RegistryObject<Item> HUNGER_CHECK_STICK = register("hunger_check_stick", HungerCheckStick::new);
 
     //Slime Balls
@@ -30,12 +33,18 @@ public class SBItems {
     public static final RegistryObject<Item> AQUA_SLIME_BALL = register("aqua_slime_ball");
     public static final RegistryObject<Item> FLAME_SLIME_BALL = register("flame_slime_ball");
     public static final RegistryObject<Item> JUNGLE_SLIME_BALL = register("jungle_slime_ball");
+    public static final RegistryObject<Item> BLACK_SLIME_BALL = register("black_slime_ball");
+    public static final RegistryObject<Item> PURPLE_SLIME_BALL = register("purple_slime_ball");
+    public static final RegistryObject<Item> CORRUPT_SLIME_BALL = register("corrupt_slime_ball");
 
     //Slime Gels
     public static final RegistryObject<Item> LUNAR_SLIME_GEL = register("lunar_slime_gel");
     public static final RegistryObject<Item> AQUA_SLIME_GEL = register("aqua_slime_gel");
     public static final RegistryObject<Item> FLAME_SLIME_GEL = register("flame_slime_gel");
     public static final RegistryObject<Item> JUNGLE_SLIME_GEL = register("jungle_slime_gel");
+    public static final RegistryObject<Item> BLACK_SLIME_GEL = register("black_slime_gel");
+    public static final RegistryObject<Item> PURPLE_SLIME_GEL = register("purple_slime_gel");
+    public static final RegistryObject<Item> CORRUPT_SLIME_GEL = register("corrupt_slime_gel");
 
     //Food
     public static final RegistryObject<Item> LUNAR_SLIME_JAM = registerJam("lunar_slime_jam");

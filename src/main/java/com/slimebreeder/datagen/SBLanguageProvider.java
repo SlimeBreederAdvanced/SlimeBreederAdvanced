@@ -21,6 +21,9 @@ public class SBLanguageProvider extends LanguageProvider {
         add(SBBlocks.FLAME_SLIME_BLOCK.get(), "Flame Slime Block");
         add(SBBlocks.LUNAR_SLIME_BLOCK.get(), "Lunar Slime Block");
         add(SBBlocks.JUNGLE_SLIME_BLOCK.get(), "Jungle Slime Block");
+        add(SBBlocks.BLACK_SLIME_BLOCK.get(), "Black Slime Block");
+        add(SBBlocks.PURPLE_SLIME_BLOCK.get(), "Purple Slime Block");
+        add(SBBlocks.CORRUPT_SLIME_BLOCK.get(), "Corrupt Slime Block");
         add(SBItems.AQUA_SLIME_SPAWN_EGG.get(), "Aqua Slime Spawn Egg");
         add(SBItems.LUNAR_SLIME_SPAWN_EGG.get(), "Lunar Slime Spawn Egg");
         add(SBItems.LUNAR_SLIME_BALL.get(), "Lunar Slime Ball");
@@ -42,6 +45,15 @@ public class SBLanguageProvider extends LanguageProvider {
         add(SBItems.JUNGLE_SLIME_GEL.get(), "Jungle Slime Gel");
         add(SBItems.JUNGLE_SLIME_SANDWICH.get(), "Jungle Slime Sandwich");
         add(SBItems.JUNGLE_SLIME_SPAWN_EGG.get(), "Jungle Slime Spawn Egg");
+        add(SBItems.BLACK_SLIME_BALL.get(), "Black Slime Ball");
+        add(SBItems.BLACK_SLIME_GEL.get(), "Black Slime Gel");
+        add(SBItems.PURPLE_SLIME_BALL.get(), "Purple Slime Ball");
+        add(SBItems.PURPLE_SLIME_GEL.get(), "Purple Slime Gel");
+        add(SBItems.BALCK_SLIME_SPAWN_EGG.get(), "Black Slime Spawn Egg");
+        add(SBItems.PURPLE_SLIME_SPAWN_EGG.get(), "Purple Slime Spawn Egg");
+        add(SBItems.CORRUPT_SLIME_BALL.get(), "Corrupt Slime Ball");
+        add(SBItems.CORRUPT_SLIME_GEL.get(), "Corrupt Slime Gel");
+        add(SBItems.CORRUPT_SLIME_SPAWN_EGG.get(), "Corrupt Slime Spawn Egg");
         add("slimebreeder.check.info", "Hunger Check Value:");
         add("slimebreeder.configgui.enableHungerReduction", "Enable slime hunger reduction");
     }

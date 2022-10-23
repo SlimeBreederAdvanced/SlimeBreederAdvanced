@@ -55,6 +55,9 @@ public class SlimeBreederHooks {
             case AQUA_SLIME -> entity.spawnAtLocation(SBItems.AQUA_SLIME_BALL.get());
             case FLAME_SLIME -> entity.spawnAtLocation(SBItems.FLAME_SLIME_BALL.get());
             case JUNGLE_SLIME -> entity.spawnAtLocation(SBItems.JUNGLE_SLIME_BALL.get());
+            case BLACK_SLIME -> entity.spawnAtLocation(SBItems.BLACK_SLIME_BALL.get());
+            case PURPLE_SLIME -> entity.spawnAtLocation(SBItems.PURPLE_SLIME_BALL.get());
+            case CORRUPT_SLIME -> entity.spawnAtLocation(SBItems.CORRUPT_SLIME_BALL.get());
             default -> entity.spawnAtLocation(Items.SLIME_BALL);
         }
     }

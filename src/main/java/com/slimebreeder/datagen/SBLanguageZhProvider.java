@@ -20,6 +20,9 @@ public class SBLanguageZhProvider extends LanguageProvider {
         add(SBBlocks.FLAME_SLIME_BLOCK.get(), "火焰史莱姆粘液块");
         add(SBBlocks.LUNAR_SLIME_BLOCK.get(), "月光史莱姆粘液块");
         add(SBBlocks.JUNGLE_SLIME_BLOCK.get(), "森林史莱姆粘液块");
+        add(SBBlocks.BLACK_SLIME_BLOCK.get(), "黑色史莱姆粘液块");
+        add(SBBlocks.PURPLE_SLIME_BLOCK.get(), "紫色史莱姆粘液块");
+        add(SBBlocks.CORRUPT_SLIME_BLOCK.get(), "腐化史莱姆粘液块");
         add(SBItems.AQUA_SLIME_SPAWN_EGG.get(), "水生史莱姆生成蛋");
         add(SBItems.LUNAR_SLIME_SPAWN_EGG.get(), "月光史莱姆生成蛋");
         add(SBItems.LUNAR_SLIME_BALL.get(), "月光史莱姆黏液球");
@@ -41,6 +44,15 @@ public class SBLanguageZhProvider extends LanguageProvider {
         add(SBItems.JUNGLE_SLIME_GEL.get(), "森林史莱姆凝胶");
         add(SBItems.JUNGLE_SLIME_SANDWICH.get(), "森林史莱姆三明治");
         add(SBItems.JUNGLE_SLIME_SPAWN_EGG.get(), "森林史莱姆生成蛋");
+        add(SBItems.BLACK_SLIME_BALL.get(), "黑色史莱姆黏液球");
+        add(SBItems.BLACK_SLIME_GEL.get(), "黑色史莱姆凝胶");
+        add(SBItems.PURPLE_SLIME_BALL.get(), "紫色史莱姆黏液球");
+        add(SBItems.PURPLE_SLIME_GEL.get(), "紫色史莱姆黏液球");
+        add(SBItems.BALCK_SLIME_SPAWN_EGG.get(), "黑色史莱姆生成蛋");
+        add(SBItems.PURPLE_SLIME_SPAWN_EGG.get(), "紫色史莱姆生成蛋");
+        add(SBItems.CORRUPT_SLIME_BALL.get(), "腐化史莱姆黏液球");
+        add(SBItems.CORRUPT_SLIME_GEL.get(), "腐化史莱姆凝胶");
+        add(SBItems.CORRUPT_SLIME_SPAWN_EGG.get(), "腐化史莱姆生成蛋");
         add("slimebreeder.check.info", "饥饿值检测信息:");
         add("slimebreeder.configgui.enableHungerReduction", "启用史莱姆饥饿值锐减");
     }

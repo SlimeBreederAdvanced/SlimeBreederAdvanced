@@ -76,11 +76,6 @@ public class LunarSlimeEntity extends BaseSlimeEntity {
 
     @Override
     public SlimeType getSlimeType() {
-        return this.setSlimeType();
-    }
-
-    @Override
-    public SlimeType setSlimeType() {
         return SlimeType.LUNAR_SLIME;
     }
 

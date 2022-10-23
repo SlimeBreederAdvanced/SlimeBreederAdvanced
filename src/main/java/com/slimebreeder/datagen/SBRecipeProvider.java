@@ -32,6 +32,9 @@ public class SBRecipeProvider extends RecipeProvider {
         smeltingSlimeBalls(SBItems.LUNAR_SLIME_BALL.get(), SBItems.LUNAR_SLIME_GEL.get(), pFinishedRecipeConsumer);
         smeltingSlimeBalls(SBItems.FLAME_SLIME_BALL.get(), SBItems.FLAME_SLIME_GEL.get(), pFinishedRecipeConsumer);
         smeltingSlimeBalls(SBItems.JUNGLE_SLIME_BALL.get(), SBItems.JUNGLE_SLIME_GEL.get(), pFinishedRecipeConsumer);
+        smeltingSlimeBalls(SBItems.BLACK_SLIME_BALL.get(), SBItems.BLACK_SLIME_GEL.get(), pFinishedRecipeConsumer);
+        smeltingSlimeBalls(SBItems.PURPLE_SLIME_BALL.get(), SBItems.PURPLE_SLIME_GEL.get(), pFinishedRecipeConsumer);
+        smeltingSlimeBalls(SBItems.CORRUPT_SLIME_BALL.get(), SBItems.CORRUPT_SLIME_GEL.get(), pFinishedRecipeConsumer);
         recipeSlimeSandwich(SBItems.AQUA_SLIME_GEL.get(), SBItems.AQUA_SLIME_SANDWICH.get(), pFinishedRecipeConsumer);
         recipeSlimeSandwich(SBItems.LUNAR_SLIME_GEL.get(), SBItems.LUNAR_SLIME_SANDWICH.get(), pFinishedRecipeConsumer);
         recipeSlimeSandwich(SBItems.JUNGLE_SLIME_GEL.get(), SBItems.JUNGLE_SLIME_SANDWICH.get(), pFinishedRecipeConsumer);
@@ -44,6 +47,9 @@ public class SBRecipeProvider extends RecipeProvider {
         recipeSlimeBlock(SBItems.LUNAR_SLIME_GEL.get(), SBBlocks.LUNAR_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
         recipeSlimeBlock(SBItems.JUNGLE_SLIME_GEL.get(), SBBlocks.JUNGLE_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
         recipeSlimeBlock(SBItems.FLAME_SLIME_GEL.get(), SBBlocks.FLAME_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
+        recipeSlimeBlock(SBItems.BLACK_SLIME_GEL.get(), SBBlocks.BLACK_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
+        recipeSlimeBlock(SBItems.PURPLE_SLIME_GEL.get(), SBBlocks.PURPLE_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
+        recipeSlimeBlock(SBItems.CORRUPT_SLIME_GEL.get(), SBBlocks.CORRUPT_SLIME_BLOCK.get(), pFinishedRecipeConsumer);
     }
 
     protected void smeltingSlimeBalls(Item originItem, Item finalItem, Consumer<FinishedRecipe> pFinishedRecipeConsumer) {

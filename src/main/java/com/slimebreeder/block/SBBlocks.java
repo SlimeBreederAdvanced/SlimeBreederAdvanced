@@ -28,6 +28,9 @@ public class SBBlocks {
     public static final RegistryObject<Block> FLAME_SLIME_BLOCK = register("flame_slime_block", SBBlocks::ofSlimeBlock);
     public static final RegistryObject<Block> LUNAR_SLIME_BLOCK = register("lunar_slime_block", SBBlocks::ofSlimeBlock);
     public static final RegistryObject<Block> JUNGLE_SLIME_BLOCK = register("jungle_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> BLACK_SLIME_BLOCK = register("black_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> PURPLE_SLIME_BLOCK = register("purple_slime_block", SBBlocks::ofSlimeBlock);
+    public static final RegistryObject<Block> CORRUPT_SLIME_BLOCK = register("corrupt_slime_block", SBBlocks::ofSlimeBlock);
 
     private static <T extends Block> RegistryObject<T> register(String name, Supplier<T> blockSupplier) {
         return register(name, blockSupplier, block -> new BlockItem(block, new Item.Properties().tab(SlimeBreederTab.TAB)));

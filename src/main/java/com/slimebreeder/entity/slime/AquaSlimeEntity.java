@@ -134,11 +134,6 @@ public class AquaSlimeEntity extends BaseSlimeEntity {
 
     @Override
     public SlimeType getSlimeType() {
-        return this.setSlimeType();
-    }
-
-    @Override
-    public SlimeType setSlimeType() {
         return SlimeType.AQUA_SLIME;
     }
 

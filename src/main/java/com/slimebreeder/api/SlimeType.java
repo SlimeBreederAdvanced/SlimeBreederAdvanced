@@ -4,5 +4,8 @@ public enum SlimeType {
     LUNAR_SLIME,
     AQUA_SLIME,
     JUNGLE_SLIME,
-    FLAME_SLIME;
+    BLACK_SLIME,
+    PURPLE_SLIME,
+    CORRUPT_SLIME,
+    FLAME_SLIME
 }
