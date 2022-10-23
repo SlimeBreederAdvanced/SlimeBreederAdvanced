@@ -3,7 +3,6 @@ package com.slimebreeder.entity.renderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.slimebreeder.SlimeBreeder;
 import com.slimebreeder.entity.slime.JungleSlimeEntity;
-import com.slimebreeder.item.layer.SlimeItemLayer;
 import net.minecraft.client.model.SlimeModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;

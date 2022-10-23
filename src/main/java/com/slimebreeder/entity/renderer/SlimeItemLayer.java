@@ -1,4 +1,4 @@
-package com.slimebreeder.item.layer;
+package com.slimebreeder.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;

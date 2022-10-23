@@ -2,7 +2,6 @@ package com.slimebreeder.entity.slime;
 
 import com.slimebreeder.SlimeBreederHooks;
 import com.slimebreeder.api.AbsorberAPI;
-import com.slimebreeder.api.HungerAPI;
 import com.slimebreeder.api.SlimeTypeAPI;
 import com.slimebreeder.entity.control.CustomSlimeMoveControl;
 import net.minecraft.core.particles.ParticleOptions;
@@ -31,7 +30,7 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 
-public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI, SlimeTypeAPI, AbsorberAPI {
+public abstract class BaseSlimeEntity extends TamableAnimal implements SlimeTypeAPI, AbsorberAPI {
 
     public float targetSquish;
     public float squish;
@@ -78,8 +77,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         pCompound.putBoolean("wasOnGround", this.wasOnGround);
         pCompound.putFloat("Health", this.getHealth());
         pCompound.putFloat("Speed", this.getSpeed());
-        pCompound.putFloat("MaxHunger", this.getMaxHunger());
-        pCompound.putFloat("Hunger", this.getHunger());
         pCompound.putInt("HungerChangeTime", this.hungerChangeTime);
         pCompound.putInt("Size", this.getSize() - 1);
         pCompound.put("slimebreeder:absorbed_item", getAbsorbedItem().save(new CompoundTag()));
@@ -91,45 +88,11 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         this.wasOnGround = pCompound.getBoolean("wasOnGround");
         this.setHealth(pCompound.getFloat("Health"));
         this.setSpeed(pCompound.getFloat("Speed"));
-        this.setMaxHunger(pCompound.getFloat("MaxHunger"));
-        this.setHunger(pCompound.getFloat("Hunger"));
         if (pCompound.contains("HungerChangeTime")) {
             this.hungerChangeTime = pCompound.getInt("HungerChangeTime");
         }
         this.setSize(pCompound.getInt("Size") + 1, false);
         this.setAbsorbedItem(ItemStack.of(pCompound.getCompound("slimebreeder:absorbed_item")));
-    }
-
-    //SlimeBreeder - Custom Mob AI , Hunger API
-
-    @Override
-    public void setHunger(float hunger) {
-        this.entityData.set(HUNGER, Math.min(getMaxHunger(), hunger));
-    }
-
-    @Override
-    public void setMaxHunger(float maxHunger) {
-        this.entityData.set(HUNGER, Mth.clamp(maxHunger, 0, this.getMaxHunger()));
-    }
-
-    @Override
-    public void regenHunger(float hunger) {
-        this.setHunger(this.getHunger() + hunger);
-    }
-
-    @Override
-    public float getHunger() {
-        return this.entityData.get(HUNGER);
-    }
-
-    @Override
-    public float getMaxHunger() {
-        return (float) this.getAttributeValue(Attributes.MAX_HEALTH);
-    }
-
-    @Override
-    public void reduceHunger(float hunger) {
-        this.setHunger(this.getHunger() - hunger);
     }
 
     @Override
@@ -140,8 +103,6 @@ public abstract class BaseSlimeEntity extends TamableAnimal implements HungerAPI
         this.entityData.define(HUNGER, 20.0F);
         this.entityData.define(DATA_ABSORBED, ItemStack.EMPTY);
     }
-
-    //SlimeBreeder - end
 
     protected ParticleOptions getParticleType() {
         return ParticleTypes.ITEM_SLIME;

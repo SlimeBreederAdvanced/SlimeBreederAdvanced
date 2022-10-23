@@ -21,7 +21,7 @@ public class HungerCheckStick extends Item {
     public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
         if (pInteractionTarget instanceof BaseSlimeEntity) {
             pPlayer.sendSystemMessage(Component.translatable(SlimeBreeder.MODID + ".check.info"));
-            pPlayer.sendSystemMessage(Component.translatable(Float.toString(((BaseSlimeEntity) pInteractionTarget).getHunger())));
+            //pPlayer.sendSystemMessage(Component.translatable(Float.toString(((BaseSlimeEntity) pInteractionTarget).getHunger())));
         }
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
     }
