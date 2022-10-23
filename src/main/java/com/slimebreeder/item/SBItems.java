@@ -24,7 +24,7 @@ public class SBItems {
     public static final RegistryObject<Item> JUNGLE_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.JUNGLE_SLIME_ENEITY, 3232308, 9945732);
     public static final RegistryObject<Item> FLAME_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.FLAME_SLIME_ENEITY, 0xff0000, 0x00ff00);
     public static final RegistryObject<Item> BALCK_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.BLACK_SLIME_ENEITY, 1447446, 0);
-    public static final RegistryObject<Item> PURPLE_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.PURPLE_SLIME_ENEITY, 9725844, 5060690);
+    public static final RegistryObject<Item> PURPLE_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.PURPLE_SLIME_ENEITY, 16499171, 10890612);
     public static final RegistryObject<Item> CORRUPT_SLIME_SPAWN_EGG = registerSpawnEgg(SBEntityTypes.CORRUPT_SLIME_ENEITY, 9725844, 5060690);
     public static final RegistryObject<Item> HUNGER_CHECK_STICK = register("hunger_check_stick", HungerCheckStick::new);
 
